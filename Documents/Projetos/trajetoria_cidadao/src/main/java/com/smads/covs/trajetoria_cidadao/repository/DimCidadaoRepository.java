@@ -8,8 +8,10 @@ import java.util.Date;
 import java.util.Optional;
 
 public interface DimCidadaoRepository extends JpaRepository<DimCidadao, BigInteger> {
+    Optional<DimCidadao> findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
+            (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc);
 
-    Optional<DimCidadao> findDimCidadaoByNrCpf(BigInteger nrCpf);
+    DimCidadao findDimCidadaoByNrCpf(BigInteger nrCpf);
 
     DimCidadao findDimCidadaoByCdNis(BigInteger cdNis);
 

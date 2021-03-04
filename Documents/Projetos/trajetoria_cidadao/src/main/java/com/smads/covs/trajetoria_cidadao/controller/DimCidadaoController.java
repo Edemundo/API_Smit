@@ -2,6 +2,7 @@ package com.smads.covs.trajetoria_cidadao.controller;
 
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 import com.smads.covs.trajetoria_cidadao.service.DimCidadaoService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
@@ -25,7 +28,7 @@ public class DimCidadaoController {
     @GetMapping("/find/{nrCpf}/{cdNis}/{nmCidadao}/{nmMae}/{dtNasc}")
     public ResponseEntity<DimCidadao> getDimCidadaos(@PathVariable("nrCpf") BigInteger nrCpf, @PathVariable("cdNis") BigInteger cdNis,
                                           @PathVariable("nmCidadao") String nmCidadao, @PathVariable("nmMae") String nmMae,
-                                          @PathVariable("dtNasc") Date dtNasc) {
+                                          @PathVariable("dtNasc") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")Date dtNasc) {
 
         DimCidadao dimCidadaos =  dimCidadaoService.findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc(nrCpf, cdNis, nmCidadao, nmMae, dtNasc);
         return new ResponseEntity<>(dimCidadaos, HttpStatus.OK);

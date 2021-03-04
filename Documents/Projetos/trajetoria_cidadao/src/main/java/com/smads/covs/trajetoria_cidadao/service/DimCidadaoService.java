@@ -18,21 +18,15 @@ public class DimCidadaoService {
         this.dimCidadaoRepository = dimCidadaoRepository;
     }
 
-//    public DimCidadao findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
-//            (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
-//
-//        return dimCidadaoRepository.findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
-//                (nrCpf, cdNis, nmCidadao, nmMae, dtNasc)
-//                .orElseThrow(() -> new UserNotFoundException("Usuário com o CPF: " + nrCpf + " não foi encontrado"));
-//    }
-
     public DimCidadao findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
 
-        return dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf)
+        //System.out.println("RESULTADOOOOOOOOOOOOOOO: " + dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf));
+
+        return dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf)/*
                 .orElse(dimCidadaoRepository.findDimCidadaoByCdNis(cdNis))
                 .orElse(dimCidadaoRepository.findDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc))
-                .orElseThrow(() -> new UserNotFoundException("O cidadão não foi encontrado"));
+                .orElseThrow(() -> new UserNotFoundException("O cidadão não foi encontrado"))*/;
     }
 
 }

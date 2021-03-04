@@ -5,7 +5,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.Optional;
 
 @Entity
 public class DimCidadao implements Serializable {
