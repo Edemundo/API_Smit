@@ -20,13 +20,27 @@ public class DimCidadaoService {
 
     public DimCidadao findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
+        DimCidadao Response;
+        Response = dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf);
 
-        //System.out.println("RESULTADOOOOOOOOOOOOOOO: " + dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf));
-
-        return dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf)/*
-                .orElse(dimCidadaoRepository.findDimCidadaoByCdNis(cdNis))
-                .orElse(dimCidadaoRepository.findDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc))
-                .orElseThrow(() -> new UserNotFoundException("O cidadão não foi encontrado"))*/;
+        if(Response != null){
+            return Response;
+        }
+        else{
+            Response = dimCidadaoRepository.findDimCidadaoByCdNis(cdNis);
+            if(Response != null){
+                return Response;
+            }
+            else{
+                Response = dimCidadaoRepository.findDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
+                if(Response != null){
+                    return Response;
+                }
+                else{
+                    return null;
+                }
+            }
+        }
     }
 
 }
