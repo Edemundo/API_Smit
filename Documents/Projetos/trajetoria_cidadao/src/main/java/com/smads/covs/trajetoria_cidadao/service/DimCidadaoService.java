@@ -20,6 +20,7 @@ public class DimCidadaoService {
 
     public DimCidadao findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
+
         DimCidadao Response;
         Response = dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf);
 
