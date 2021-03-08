@@ -11,9 +11,9 @@ public interface DimCidadaoRepository extends JpaRepository<DimCidadao, BigInteg
 //    Optional<DimCidadao> findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
 //            (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc);
 
-    DimCidadao findDimCidadaoByNrCpf(BigInteger nrCpf);
+    DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpf(BigInteger nrCpf);
 
-    DimCidadao findDimCidadaoByCdNis(BigInteger cdNis);
+    DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByCdNis(BigInteger cdNis);
 
-    DimCidadao findDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(String nmCidadao, String nmMae, Date dtNasc);
+    DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(String nmCidadao, String nmMae, Date dtNasc);
 }

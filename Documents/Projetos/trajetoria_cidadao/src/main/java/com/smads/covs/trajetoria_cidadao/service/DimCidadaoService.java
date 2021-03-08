@@ -1,7 +1,6 @@
 package com.smads.covs.trajetoria_cidadao.service;
 
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
-import com.smads.covs.trajetoria_cidadao.exception.UserNotFoundException;
 import com.smads.covs.trajetoria_cidadao.repository.DimCidadaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,22 +17,22 @@ public class DimCidadaoService {
         this.dimCidadaoRepository = dimCidadaoRepository;
     }
 
-    public DimCidadao findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
+    public DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
 
         DimCidadao Response;
-        Response = dimCidadaoRepository.findDimCidadaoByNrCpf(nrCpf);
+        Response = dimCidadaoRepository.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpf(nrCpf);
 
         if(Response != null){
             return Response;
         }
         else{
-            Response = dimCidadaoRepository.findDimCidadaoByCdNis(cdNis);
+            Response = dimCidadaoRepository.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByCdNis(cdNis);
             if(Response != null){
                 return Response;
             }
             else{
-                Response = dimCidadaoRepository.findDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
+                Response = dimCidadaoRepository.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
                 if(Response != null){
                     return Response;
                 }
