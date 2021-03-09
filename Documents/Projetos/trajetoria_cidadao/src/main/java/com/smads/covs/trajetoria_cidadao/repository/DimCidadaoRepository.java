@@ -2,18 +2,18 @@ package com.smads.covs.trajetoria_cidadao.repository;
 
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.Optional;
 
 public interface DimCidadaoRepository extends JpaRepository<DimCidadao, BigInteger> {
-//    Optional<DimCidadao> findDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
-//            (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc);
 
-    DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpf(BigInteger nrCpf);
+    DimCidadao findByNrCpf(BigInteger nrCpf);
 
-    DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByCdNis(BigInteger cdNis);
+    DimCidadao findByCdNis(BigInteger cdNis);
 
-    DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(String nmCidadao, String nmMae, Date dtNasc);
+    DimCidadao findByNmCidadaoAndNmMaeAndDtNasc(String nmCidadao, String nmMae, Date dtNasc);
+
 }

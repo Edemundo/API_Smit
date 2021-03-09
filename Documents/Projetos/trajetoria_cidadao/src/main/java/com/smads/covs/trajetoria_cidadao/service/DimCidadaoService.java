@@ -11,28 +11,29 @@ import java.util.Date;
 @Service
 public class DimCidadaoService {
     private final DimCidadaoRepository dimCidadaoRepository;
+    private DimCidadao Response;
 
     @Autowired
     public DimCidadaoService(DimCidadaoRepository dimCidadaoRepository) {
         this.dimCidadaoRepository = dimCidadaoRepository;
     }
 
-    public DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
+    public DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
 
-        DimCidadao Response;
-        Response = dimCidadaoRepository.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpf(nrCpf);
+
+        Response = dimCidadaoRepository.findByNrCpf(nrCpf);
 
         if(Response != null){
             return Response;
         }
         else{
-            Response = dimCidadaoRepository.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByCdNis(cdNis);
+            Response = dimCidadaoRepository.findByCdNis(cdNis);
             if(Response != null){
                 return Response;
             }
             else{
-                Response = dimCidadaoRepository.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
+                Response = dimCidadaoRepository.findByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
                 if(Response != null){
                     return Response;
                 }

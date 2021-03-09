@@ -15,11 +15,11 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/cidadao")
-public class DimCidadaoController {
+public class APIRestController {
 
     private final DimCidadaoService dimCidadaoService;
 
-    public DimCidadaoController(DimCidadaoService dimCidadaoService) {
+    public APIRestController(DimCidadaoService dimCidadaoService) {
         this.dimCidadaoService = dimCidadaoService;
     }
 
@@ -28,7 +28,9 @@ public class DimCidadaoController {
                                           @PathVariable("nmCidadao") String nmCidadao, @PathVariable("nmMae") String nmMae,
                                           @PathVariable("dtNasc") @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")Date dtNasc) {
 
-        DimCidadao dimCidadaos =  dimCidadaoService.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNascInDimCidadaoByNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc(nrCpf, cdNis, nmCidadao, nmMae, dtNasc);
+        DimCidadao dimCidadaos =  dimCidadaoService.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
+                (nrCpf, cdNis, nmCidadao, nmMae, dtNasc);
+
         return new ResponseEntity<>(dimCidadaos, HttpStatus.OK);
     }
 
