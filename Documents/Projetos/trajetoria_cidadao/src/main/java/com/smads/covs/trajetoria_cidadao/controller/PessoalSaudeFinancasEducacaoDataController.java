@@ -34,24 +34,27 @@ public class PessoalSaudeFinancasEducacaoDataController {
     private final DimPaisOrigemService dimPaisOrigemService;
     private final DimSituacaoCidadaoService dimSituacaoCidadaoService;
     private final TabPessoaCadunicoService tabPessoaCadunicoService;
+    private final TabFamiliaCadunicoService tabFamiliaCadunicoService;
 
     public PessoalSaudeFinancasEducacaoDataController(DimRacaService dimRacaService, DimTipoSexoService dimTipoSexoService,
                                                       DimPaisOrigemService dimPaisOrigemService, DimSituacaoCidadaoService dimSituacaoCidadaoService,
-                                                      TabPessoaCadunicoService tabPessoaCadunicoService) {
+                                                      TabPessoaCadunicoService tabPessoaCadunicoService, TabFamiliaCadunicoService tabFamiliaCadunicoService) {
         this.dimRacaService = dimRacaService;
         this.dimTipoSexoService = dimTipoSexoService;
         this.dimPaisOrigemService = dimPaisOrigemService;
         this.dimSituacaoCidadaoService = dimSituacaoCidadaoService;
         this.tabPessoaCadunicoService = tabPessoaCadunicoService;
+        this.tabFamiliaCadunicoService = tabFamiliaCadunicoService;
     }
 
     public Map<String, Object> PSFEDataController(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
 
         Map<String, Object> strPersonalData = PersonalData(dimCidadao);
         Map<String, Object> strHealthData = HealthData(dimCidadao);
-        //Map<String, Object> strFinantialData = FinantialData(strHealthData);
+        Map<String, Object> strFinantialData = FinantialData(strHealthData);
         Map<String, Object> strPSFEData = new HashMap<>(strPersonalData);
         strPSFEData.putAll(strHealthData);
+        strPSFEData.putAll(strFinantialData);
 
         return strPSFEData;
     }
@@ -95,7 +98,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
         return strPersonalData;
     }
 
-    public Map<String, Object> HealthData(DimCidadao dimCidadao) throws JsonProcessingException {
+    public Map<String, Object> HealthData(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
 
         DimSituacaoCidadao dimSituacaoCidadao = findSituacaoCidadao(dimCidadao.getCiSitCidadao());
         String strSituacaoCidadao = objectWriter.writeValueAsString(dimSituacaoCidadao);
@@ -109,16 +112,257 @@ public class PessoalSaudeFinancasEducacaoDataController {
         Map<String, Object> strHealthData = new HashMap<String, Object>(mapStrSituacaoCidadao);
         strHealthData.putAll(mapStrTabPessoaCadunico);
 
+        JSONObject jsonObjHealthData = new JSONObject(strHealthData);
+
+        // Calculando trabalho do cidadão
+        String strCodTrabMemb = jsonObjHealthData.getString("codPrincipalTrabMemb");
+        String descTrabMemb;
+        if(strCodTrabMemb != null && strCodTrabMemb != "null"){
+            Integer codTrabMemb = Integer.parseInt(strCodTrabMemb);
+
+            if(codTrabMemb == 1)
+                descTrabMemb = "TRABALHADOR POR CONTA PROPRIA (BICO, AUTONOMO)";
+            else if(codTrabMemb == 2)
+                descTrabMemb = "TRABALHADOR TEMPORARIO EM AREA RURAL";
+            else if(codTrabMemb == 3)
+                descTrabMemb = "EMPREGADO SEM CARTEIRA DE TRABALHO ASSINADA";
+            else if(codTrabMemb == 4)
+                descTrabMemb = "EMPREGADO COM CARTEIRA DE TRABALHO ASSINADA";
+            else if(codTrabMemb == 5)
+                descTrabMemb = "TRABALHADOR DOMESTICO SEM CARTEIRA DE TRABALHO ASSINADA";
+            else if(codTrabMemb == 6)
+                descTrabMemb = "TRABALHADOR DOMESTICO COM CARTEIRA DE TRABALHO ASSINADA";
+            else if(codTrabMemb == 7)
+                descTrabMemb = "TRABALHADOR NAO-REMUNERADO";
+            else if(codTrabMemb == 8)
+                descTrabMemb = "MILITAR OU SERVIDOR PUBLICO";
+            else if(codTrabMemb == 9)
+                descTrabMemb = "EMPREGADOR";
+            else if(codTrabMemb == 10)
+                descTrabMemb = "ESTAGIARIO";
+            else if(codTrabMemb == 11)
+                descTrabMemb = "APRENDIZ";
+            else
+                descTrabMemb = "DESEMPREGADO / NÃO INFORMADO";
+
+        }
+        else{
+            descTrabMemb = "DESEMPREGADO / NÃO INFORMADO";
+        }
+
+        jsonObjHealthData.put("descTrabMembro", descTrabMemb);
+
+
+        // Calculando se o cidadão já frequentou a escola
+        String strCodFrequentaEscolaMemb = jsonObjHealthData.getString("indFrequentaEscolaMemb");
+        String descFrequentaEscolaMemb;
+        if(strCodFrequentaEscolaMemb != null && strCodFrequentaEscolaMemb != "null"){
+                        Integer codFrequentaEscolaMemb = Integer.parseInt(strCodFrequentaEscolaMemb);
+            if(codFrequentaEscolaMemb == 1)
+                descFrequentaEscolaMemb = "Sim, rede pública";
+            else if(codFrequentaEscolaMemb == 2)
+                descFrequentaEscolaMemb = "Não, rede particular";
+            else if(codFrequentaEscolaMemb == 3)
+                descFrequentaEscolaMemb = "Não, já frequentou";
+            else if(codFrequentaEscolaMemb == 4)
+                descFrequentaEscolaMemb = "Nunca frequentou";
+            else
+                descFrequentaEscolaMemb = "Não informado";
+        }
+        else{
+            descFrequentaEscolaMemb = "Não informado";
+        }
+
+        jsonObjHealthData.put("descFrequentaEscolaMemb", descFrequentaEscolaMemb);
+
+        // Calculando o curso que frequenta o membro
+        String strCodCursoFrequentaMemb = jsonObjHealthData.getString("codCursoFrequentaMemb");
+        String descCursoFrequentaMemb;
+        if(strCodCursoFrequentaMemb != "null" && strCodCursoFrequentaMemb != null){
+            Integer codCursoFrequentaMemb = Integer.parseInt(strCodCursoFrequentaMemb);
+
+            if(codCursoFrequentaMemb == 1)
+                descCursoFrequentaMemb = "Creche";
+            else if(codCursoFrequentaMemb == 2)
+                descCursoFrequentaMemb = "Pré-escola (exceto CA)";
+            else if(codCursoFrequentaMemb == 3)
+                descCursoFrequentaMemb = "Classe de Alfabetização - CA";
+            else if(codCursoFrequentaMemb == 4)
+                descCursoFrequentaMemb = "Ensino Fundamental regular (duração 8 anos)";
+            else if(codCursoFrequentaMemb == 5)
+                descCursoFrequentaMemb = "Ensino Fundamental regular (duração 9 anos)";
+            else if(codCursoFrequentaMemb == 6)
+                descCursoFrequentaMemb = "Ensino Fundamental especial";
+            else if(codCursoFrequentaMemb == 7)
+                descCursoFrequentaMemb = "Ensino Médio regular";
+            else if(codCursoFrequentaMemb == 8)
+                descCursoFrequentaMemb = "Ensino Médio especial";
+            else if(codCursoFrequentaMemb == 9)
+                descCursoFrequentaMemb = "Ensino Fundamental EJA - séries iniciais (Supletivo - 1ª a 4ª)";
+            else if(codCursoFrequentaMemb == 10)
+                descCursoFrequentaMemb = "Ensino Fundamental EJA - séries finais (Supletivo - 5ª a 8ª)";
+            else if(codCursoFrequentaMemb == 11)
+                descCursoFrequentaMemb = "Ensino Médio EJA (Supletivo)";
+            else if(codCursoFrequentaMemb == 12)
+                descCursoFrequentaMemb = "Alfabetização para adultos";
+            else if(codCursoFrequentaMemb == 13)
+                descCursoFrequentaMemb = "Superior, Aperfeiçoamento, Especialização, Mestrado, Doutorado";
+            else if(codCursoFrequentaMemb == 14)
+                descCursoFrequentaMemb = "Pré-vestibular";
+            else
+                descCursoFrequentaMemb = "Não frequenta / Não informado";
+
+        }
+        else{
+            descCursoFrequentaMemb = "Não frequenta / Não informado";
+        }
+
+        jsonObjHealthData.put("descCursoFrequentaMemb", descCursoFrequentaMemb);
+
+        // Calculando o ano/série que frequenta
+        String strCodAnoSerieFrequenta = jsonObjHealthData.getString("codAnoSerieFrequentaMemb");
+        String descAnoSerieFrequenta;
+        if(strCodAnoSerieFrequenta != null && strCodAnoSerieFrequenta != "null"){
+            Integer codAnoSerieFrequenta = Integer.parseInt(strCodAnoSerieFrequenta);
+
+            if(codAnoSerieFrequenta == 1)
+                descAnoSerieFrequenta = "Primeiro(a)";
+            else if(codAnoSerieFrequenta == 2)
+                descAnoSerieFrequenta = "Segundo(a)";
+            else if(codAnoSerieFrequenta == 3)
+                descAnoSerieFrequenta = "Terceiro(a)";
+            else if(codAnoSerieFrequenta == 4)
+                descAnoSerieFrequenta = "Quarto(a)";
+            else if(codAnoSerieFrequenta == 5)
+                descAnoSerieFrequenta = "Quinto(a)";
+            else if(codAnoSerieFrequenta == 6)
+                descAnoSerieFrequenta = "Sexto(a)";
+            else if(codAnoSerieFrequenta == 7)
+                descAnoSerieFrequenta = "Sétimo(a)";
+            else if(codAnoSerieFrequenta == 8)
+                descAnoSerieFrequenta = "Oitavo(a)";
+            else if(codAnoSerieFrequenta == 9)
+                descAnoSerieFrequenta = "Nono(a)";
+            else if(codAnoSerieFrequenta == 10)
+                descAnoSerieFrequenta = "Curso não-seriado";
+            else
+                descAnoSerieFrequenta = "Não frequenta / Não informado";
+        }
+        else{
+            descAnoSerieFrequenta = "Não frequenta / Não informado";
+        }
+
+        jsonObjHealthData.put("descAnoSerieFrequentaMemb", descAnoSerieFrequenta);
+
+        // Calculando o curso que o cidadão já frequentou
+        String strCodCursoFrequentou = jsonObjHealthData.getString("codCursoFrequentouPessoaMemb");
+        String descCursoFrequentou;
+        if(strCodCursoFrequentou != null && strCodCursoFrequentou != "null"){
+            Integer codCursoFrequentou = Integer.parseInt(strCodCursoFrequentou);
+
+
+            if(codCursoFrequentou == 1)
+                descCursoFrequentou = "Creche";
+            else if(codCursoFrequentou == 2)
+                descCursoFrequentou = "Pré-escola (exceto CA)";
+            else if(codCursoFrequentou == 3)
+                descCursoFrequentou = "Classe de Alfabetização - CA";
+            else if(codCursoFrequentou == 4)
+                descCursoFrequentou = "Ensino Fundamental 1ª a 4ª séries, Elementar (Primário), Primeira fase do 1º grau";
+            else if(codCursoFrequentou == 5)
+                descCursoFrequentou = "Ensino Fundamental 5ª a 8ª séries, Médio 1º ciclo (Ginasial), Segunda fase do 1º grau";
+            else if(codCursoFrequentou == 6)
+                descCursoFrequentou = "Ensino Fundamental regular (duração 9 anos)";
+            else if(codCursoFrequentou == 7)
+                descCursoFrequentou = "Ensino Fundamental especial";
+            else if(codCursoFrequentou == 8)
+                descCursoFrequentou = "Ensino Médio, 2ºgrau, Médio 2º ciclo (Científico, Clássico, Técnico, Normal)";
+            else if(codCursoFrequentou == 9)
+                descCursoFrequentou = "Ensino Médio especial";
+            else if(codCursoFrequentou == 10)
+                descCursoFrequentou = "Ensino Fundamental EJA - séries iniciais (Supletivo - 1ª a 4ª)";
+            else if(codCursoFrequentou == 11)
+                descCursoFrequentou = "Ensino Fundamental EJA - séries finais (Supletivo - 5ª a 8ª)";
+            else if(codCursoFrequentou == 12)
+                descCursoFrequentou = "Ensino Médio EJA (Supletivo)";
+            else if(codCursoFrequentou == 13)
+                descCursoFrequentou = "Superior, Aperfeiçoamento, Especialização, Mestrado, Doutorado";
+            else if(codCursoFrequentou == 14)
+                descCursoFrequentou = "Alfabetização para Adultos (Mobral, etc.)";
+            else if(codCursoFrequentou == 15)
+                descCursoFrequentou = "Nenhum";
+            else
+                descCursoFrequentou = "Não informado";
+
+        }
+        else{
+            descCursoFrequentou = "Não informado";
+        }
+
+        jsonObjHealthData.put("descCursoFrequentouPessoaMemb", descCursoFrequentou);
+
+        // Calculando o ano/série que frequenta
+        String strCodAnoSerieFrequentou = jsonObjHealthData.getString("codAnoSerieFrequentouMemb");
+        String descAnoSerieFrequentou;
+        if(strCodAnoSerieFrequentou != null && strCodAnoSerieFrequentou != "null"){
+            Integer codAnoSerieFrequentou = Integer.parseInt(strCodAnoSerieFrequentou);
+
+            if(codAnoSerieFrequentou == 1)
+                descAnoSerieFrequentou = "Primeiro(a)";
+            else if(codAnoSerieFrequentou == 2)
+                descAnoSerieFrequentou = "Segundo(a)";
+            else if(codAnoSerieFrequentou == 3)
+                descAnoSerieFrequentou = "Terceiro(a)";
+            else if(codAnoSerieFrequentou == 4)
+                descAnoSerieFrequentou = "Quarto(a)";
+            else if(codAnoSerieFrequentou == 5)
+                descAnoSerieFrequentou = "Quinto(a)";
+            else if(codAnoSerieFrequentou == 6)
+                descAnoSerieFrequentou = "Sexto(a)";
+            else if(codAnoSerieFrequentou == 7)
+                descAnoSerieFrequentou = "Sétimo(a)";
+            else if(codAnoSerieFrequentou == 8)
+                descAnoSerieFrequentou = "Oitavo(a)";
+            else if(codAnoSerieFrequentou == 9)
+                descAnoSerieFrequentou = "Nono(a)";
+            else if(codAnoSerieFrequentou == 10)
+                descAnoSerieFrequentou = "Curso não-seriado";
+            else
+                descAnoSerieFrequentou = "Não frequentou / Não informado";
+        }
+        else{
+            descAnoSerieFrequentou = "Não frequentou / Não informado";
+        }
+
+        jsonObjHealthData.put("descAnoSerieFrequentouMemb", descAnoSerieFrequentou);
+        strHealthData = mapper.readValue(jsonObjHealthData.toString(), HashMap.class);
+
         return strHealthData;
     }
 
-    public Map<String, Object> FinantialData(String codFamiliar){
+    public Map<String, Object> FinantialData(Map<String, Object> strHealthData) throws JSONException, JsonProcessingException {
 
-        return null;
+        JSONObject jsonFinantialData = new JSONObject(strHealthData);
+        String codFamiliarFam = jsonFinantialData.getString("codFamiliarFam");
+        TabFamiliaCadunico tabFamiliaCadunico = findFamiliaCadunico(codFamiliarFam);
+        String strTabFamiliaCadunico = objectWriter.writeValueAsString(tabFamiliaCadunico);
+
+        Map<String, Object> mapStrTabFamiliaCadunico = mapper.readValue(strTabFamiliaCadunico, Map.class);
+        Map<String, Object> strFinantialData = new HashMap<String, Object>(mapStrTabFamiliaCadunico);
+
+        jsonFinantialData = new JSONObject(strFinantialData);
+        String strVlrRendaFamiliar = jsonFinantialData.getString("vlrRendaMediaFam");
+        String strQtdPessoasDomicFam = jsonFinantialData.getString("qtdPessoasDomicFam");
+        Integer rendaPerCapta = Integer.parseInt(strVlrRendaFamiliar)/Integer.parseInt(strQtdPessoasDomicFam);
+        jsonFinantialData.put("RendaperCaptaFamiliar", rendaPerCapta);
+
+        strFinantialData = mapper.readValue(jsonFinantialData.toString(), HashMap.class);
+
+        return strFinantialData;
     }
 
     // Todos atributos necessários já foram retornados pelo Health
-//    public String EducationData(DimCidadao dimCidadao){ return null; }
+    // public String EducationData(DimCidadao dimCidadao){ return null; }
 
     // Utilização do método findRacaCidadao
     // Controller(s) que utilizam: PessoalSaudeFinancasEducacaoDataController
@@ -170,9 +414,13 @@ public class PessoalSaudeFinancasEducacaoDataController {
         return Response;
     }
 
-    private TabFamiliaCadunico findFamiliaCadunico(){
+    // Utilização do método findFamiliaCadunico
+    // Controller(s) que utilizam: PessoalSaudeFinancasEducacaoDataController
+    // Método que utilizam dele: FinantialData
+    private TabFamiliaCadunico findFamiliaCadunico(String cdFamiliarFam){
         TabFamiliaCadunico Response;
 
-        return null;
+        Response = tabFamiliaCadunicoService.findByTabFamiliaCadunico(cdFamiliarFam);
+        return Response;
     }
 }
