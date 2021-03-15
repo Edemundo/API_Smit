@@ -99,6 +99,46 @@ public class TabFamiliaCadunico {
         return dtCarga;
     }
 
+    public void setCodFamiliarFam(String codFamiliarFam) {
+        this.codFamiliarFam = codFamiliarFam;
+    }
+
+    public void setQtdPessoasDomicFam(String qtdPessoasDomicFam) {
+        this.qtdPessoasDomicFam = qtdPessoasDomicFam;
+    }
+
+    public void setVlrRendaMediaFam(String vlrRendaMediaFam) {
+        this.vlrRendaMediaFam = vlrRendaMediaFam;
+    }
+
+    public void setIndTrabalhoInfantilFam(String indTrabalhoInfantilFam) {
+        this.indTrabalhoInfantilFam = indTrabalhoInfantilFam;
+    }
+
+    public void setNomLocalidadeFam(String nomLocalidadeFam) {
+        this.nomLocalidadeFam = nomLocalidadeFam;
+    }
+
+    public void setNomTipLogradouroFam(String nomTipLogradouroFam) {
+        this.nomTipLogradouroFam = nomTipLogradouroFam;
+    }
+
+    public void setNomTituloLogradouroFam(String nomTituloLogradouroFam) {
+        this.nomTituloLogradouroFam = nomTituloLogradouroFam;
+    }
+
+    public void setNomLogradouroFam(String nomLogradouroFam) {
+        this.nomLogradouroFam = nomLogradouroFam;
+    }
+
+    public void setNumLogradouroFam(String numLogradouroFam) {
+        this.numLogradouroFam = numLogradouroFam;
+    }
+
+    public void setDtCarga(Date dtCarga) {
+        this.dtCarga = dtCarga;
+    }
+
     @Override
     public String toString() {
         return "TabFamiliaCadunico{" +

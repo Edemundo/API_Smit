@@ -49,9 +49,9 @@ public class TelaDetalhadaMainController {
 
         Map<String, Object> strCidadaoDetalhado = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
 
+
         // Remover o que não será utilizado no frontend
         JSONObject jsonObjStrCidadaoDetalhado = new JSONObject(strCidadaoDetalhado);
-
         // Dados Escolares
         jsonObjStrCidadaoDetalhado.remove("indFrequentaEscolaMemb");
         jsonObjStrCidadaoDetalhado.remove("codAnoSerieFrequentaMemb");
@@ -59,7 +59,6 @@ public class TelaDetalhadaMainController {
         jsonObjStrCidadaoDetalhado.remove("codAnoSerieFrequentouMemb");
         jsonObjStrCidadaoDetalhado.remove("codCursoFrequentouPessoaMemb");
         jsonObjStrCidadaoDetalhado.remove("nomTipLogradouroFam");
-
         // Dados Pessoais
         jsonObjStrCidadaoDetalhado.remove("ciCidadao");
         jsonObjStrCidadaoDetalhado.remove("ciTipoSexo");
@@ -69,12 +68,14 @@ public class TelaDetalhadaMainController {
         jsonObjStrCidadaoDetalhado.remove("ciPaisOrigem");
         jsonObjStrCidadaoDetalhado.remove("indTrabalhoInfantilFam");
         jsonObjStrCidadaoDetalhado.remove("codPrincipalTrabMemb");
-
+        jsonObjStrCidadaoDetalhado.remove("codParentescoRfPessoa");
         // Endereço
         jsonObjStrCidadaoDetalhado.remove("nomLogradouroFam");
         jsonObjStrCidadaoDetalhado.remove("nomLocalidadeFam");
         jsonObjStrCidadaoDetalhado.remove("nomTituloLogradouroFam");
         jsonObjStrCidadaoDetalhado.remove("numLogradouroFam");
+
+        strCidadaoDetalhado = mapper.readValue(jsonObjStrCidadaoDetalhado.toString(), HashMap.class);
 
         return new ResponseEntity<>(strCidadaoDetalhado, HttpStatus.OK);
     }

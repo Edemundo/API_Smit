@@ -6,10 +6,11 @@ import javax.persistence.Id;
 @Entity
 public class TabPessoaCadunico {
 
-    // Dados para chave estrangeira
+    // Atributos usados em dados pessoais
     @Id
     private String numNisPessoaAtual;
     private String codFamiliarFam;
+    private String codParentescoRfPessoa;
 
     // Atributos usados em saúde
     private String codDeficienciaMemb;
@@ -43,12 +44,16 @@ public class TabPessoaCadunico {
         this.numNisPessoaAtual = numNisPessoaAtual;
     }
 
-    public TabPessoaCadunico(String codFamiliarFam, String codDeficienciaMemb, String indDefCegueiraMemb, String indDefBaixaVisaoMemb,
-                             String indDefSurdezProfundaMemb, String indDefSurdezLeveMemb, String indDefFisicaMemb, String indDefMentalMemb,
-                             String indDefSindromeDownMemb, String indDefTranstornoMentalMemb, String codSabeLerEscreverMemb, String indFrequentaEscolaMemb,
-                             String codCursoFrequentaMemb, String codAnoSerieFrequentaMemb, String codConcluiuFrequentouMemb, String codCursoFrequentouPessoaMemb,
-                             String codAnoSerieFrequentouMemb, String indAjudaFamiliaMemb, String indAjudaNaoMemb, String codPrincipalTrabMemb) {
+    public TabPessoaCadunico(String codFamiliarFam, String codParentescoRfPessoa,
+                             String codDeficienciaMemb, String indDefCegueiraMemb,
+                             String indDefBaixaVisaoMemb, String indDefSurdezProfundaMemb,
+                             String indDefSurdezLeveMemb, String indDefFisicaMemb, String indDefMentalMemb,
+                             String indDefSindromeDownMemb, String indDefTranstornoMentalMemb, String codSabeLerEscreverMemb,
+                             String indFrequentaEscolaMemb, String codCursoFrequentaMemb, String codAnoSerieFrequentaMemb,
+                             String codConcluiuFrequentouMemb, String codCursoFrequentouPessoaMemb, String codAnoSerieFrequentouMemb,
+                             String indAjudaFamiliaMemb, String indAjudaNaoMemb, String codPrincipalTrabMemb) {
         this.codFamiliarFam = codFamiliarFam;
+        this.codParentescoRfPessoa = codParentescoRfPessoa;
         this.codDeficienciaMemb = codDeficienciaMemb;
         this.indDefCegueiraMemb = indDefCegueiraMemb;
         this.indDefBaixaVisaoMemb = indDefBaixaVisaoMemb;
@@ -70,14 +75,17 @@ public class TabPessoaCadunico {
         this.codPrincipalTrabMemb = codPrincipalTrabMemb;
     }
 
-    public TabPessoaCadunico(String numNisPessoaAtual, String codFamiliarFam, String codDeficienciaMemb, String indDefCegueiraMemb,
-                             String indDefBaixaVisaoMemb, String indDefSurdezProfundaMemb, String indDefSurdezLeveMemb, String indDefFisicaMemb,
-                             String indDefMentalMemb, String indDefSindromeDownMemb, String indDefTranstornoMentalMemb, String codSabeLerEscreverMemb,
-                             String indFrequentaEscolaMemb, String codCursoFrequentaMemb, String codAnoSerieFrequentaMemb, String codConcluiuFrequentouMemb,
-                             String codCursoFrequentouPessoaMemb, String codAnoSerieFrequentouMemb, String indAjudaFamiliaMemb, String indAjudaNaoMemb,
-                             String codPrincipalTrabMemb) {
+    public TabPessoaCadunico(String numNisPessoaAtual, String codFamiliarFam, String codParentescoRfPessoa,
+                             String codDeficienciaMemb, String indDefCegueiraMemb,
+                             String indDefBaixaVisaoMemb, String indDefSurdezProfundaMemb,
+                             String indDefSurdezLeveMemb, String indDefFisicaMemb, String indDefMentalMemb,
+                             String indDefSindromeDownMemb, String indDefTranstornoMentalMemb, String codSabeLerEscreverMemb,
+                             String indFrequentaEscolaMemb, String codCursoFrequentaMemb, String codAnoSerieFrequentaMemb,
+                             String codConcluiuFrequentouMemb, String codCursoFrequentouPessoaMemb, String codAnoSerieFrequentouMemb,
+                             String indAjudaFamiliaMemb, String indAjudaNaoMemb, String codPrincipalTrabMemb) {
         this.numNisPessoaAtual = numNisPessoaAtual;
         this.codFamiliarFam = codFamiliarFam;
+        this.codParentescoRfPessoa = codParentescoRfPessoa;
         this.codDeficienciaMemb = codDeficienciaMemb;
         this.indDefCegueiraMemb = indDefCegueiraMemb;
         this.indDefBaixaVisaoMemb = indDefBaixaVisaoMemb;
@@ -113,6 +121,14 @@ public class TabPessoaCadunico {
 
     public void setCodFamiliarFam(String codFamiliarFam) {
         this.codFamiliarFam = codFamiliarFam;
+    }
+
+    public String getCodParentescoRfPessoa() {
+        return codParentescoRfPessoa;
+    }
+
+    public void setCodParentescoRfPessoa(String codParentescoRfPessoa) {
+        this.codParentescoRfPessoa = codParentescoRfPessoa;
     }
 
     public String getCodDeficienciaMemb() {
@@ -272,6 +288,7 @@ public class TabPessoaCadunico {
         return "TabPessoaCadunico{" +
                 "numNisPessoaAtual='" + numNisPessoaAtual + '\'' +
                 ", codFamiliarFam='" + codFamiliarFam + '\'' +
+                ", codParentescoRfPessoa='" + codParentescoRfPessoa + '\'' +
                 ", codDeficienciaMemb='" + codDeficienciaMemb + '\'' +
                 ", indDefCegueiraMemb='" + indDefCegueiraMemb + '\'' +
                 ", indDefBaixaVisaoMemb='" + indDefBaixaVisaoMemb + '\'' +

@@ -3,6 +3,7 @@ package com.smads.covs.trajetoria_cidadao.controller;
 import com.smads.covs.trajetoria_cidadao.model.*;
 import com.smads.covs.trajetoria_cidadao.service.*;
 
+import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -81,8 +82,9 @@ public class PessoalSaudeFinancasEducacaoDataController {
         strPersonalData.putAll(mapStrSexoCidadao);
         strPersonalData.putAll(mapStrPaisOrigem);
 
-        // Formatando a data para dd/mm/aaaa
         JSONObject jsonObjCidadaoDetalhado = new JSONObject(strPersonalData);
+
+        // Formatando a data para dd/mm/aaaa
         Long resultDtNasc = jsonObjCidadaoDetalhado.getLong("dtNasc");
         Date dtResultDtNasc = new Date(resultDtNasc);
         String strDtResultDtNasc = formatadorDatas.format(dtResultDtNasc);
@@ -334,6 +336,18 @@ public class PessoalSaudeFinancasEducacaoDataController {
             descAnoSerieFrequentou = "Não frequentou / Não informado";
         }
 
+        // Responsável Familiar
+        String strResponsavel = jsonObjHealthData.getString("codParentescoRfPessoa");
+        Integer intResponsavel = Integer.parseInt(strResponsavel);
+        String descResponsavel;
+        if(intResponsavel == 1){
+            descResponsavel = "Sim";
+        }
+        else{
+            descResponsavel = "Não";
+        }
+        jsonObjHealthData.put("descResponsavel", descResponsavel);
+
         jsonObjHealthData.put("descAnoSerieFrequentouMemb", descAnoSerieFrequentou);
         strHealthData = mapper.readValue(jsonObjHealthData.toString(), HashMap.class);
 
@@ -352,23 +366,39 @@ public class PessoalSaudeFinancasEducacaoDataController {
 
         jsonFinantialData = new JSONObject(strFinantialData);
         // Concatenando o endereço do cidadão
-
         Integer numEndereco = Integer.parseInt(jsonFinantialData.getString("numLogradouroFam").trim());
+        String endTipLog = jsonFinantialData.getString("nomTipLogradouroFam").trim();
+        String endNomLog = jsonFinantialData.getString("nomTituloLogradouroFam").trim();
+        String endLog = jsonFinantialData.getString("nomLogradouroFam").trim();
+        String endNomLoc = jsonFinantialData.getString("nomLocalidadeFam").trim();
 
-        String strFullAddress = jsonFinantialData.getString("nomTipLogradouroFam").trim() + " "
-                + jsonFinantialData.getString("nomTituloLogradouroFam").trim() + " "
-                + jsonFinantialData.getString("nomLogradouroFam").trim()  + " - "
+        if(endTipLog == "null"){
+            endTipLog = "";
+        }
+        if(endNomLog == "null"){
+            endNomLog = "";
+        }
+        if(endLog == "null"){
+            endLog = "";
+        }
+        if(endNomLoc == "null"){
+            endNomLoc = "";
+        }
+        String strFullAddress = endTipLog + " "
+                + endNomLog + " "
+                + endLog  + ", nº"
                 + numEndereco + ", "
-                + jsonFinantialData.getString("nomLocalidadeFam").trim()
-                + " SÃO PAULO - BRASIL";
+                + endNomLoc + ", "
+                + "SÃO PAULO - SP - BRASIL";
         jsonFinantialData.put("descEndereco", strFullAddress);
 
         // Mudando o formato da renda familiar para float
         String strVlrRendaFamiliar = jsonFinantialData.getString("vlrRendaMediaFam");
         StringBuilder stringBuilder = new StringBuilder(strVlrRendaFamiliar);
+        stringBuilder.insert(strVlrRendaFamiliar.length()-2,".");
         String dotStrVlrRendaFamiliar = stringBuilder.toString();
         Float vlrRendaFamiliar = Float.parseFloat(dotStrVlrRendaFamiliar);
-        jsonFinantialData.put("vlrRendaMediaFam", vlrRendaFamiliar);
+        jsonFinantialData.put("RendaMediaFam", vlrRendaFamiliar);
 
         strFinantialData = mapper.readValue(jsonFinantialData.toString(), HashMap.class);
 
