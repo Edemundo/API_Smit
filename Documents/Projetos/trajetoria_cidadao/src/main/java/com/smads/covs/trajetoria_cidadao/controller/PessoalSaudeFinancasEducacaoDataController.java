@@ -351,11 +351,20 @@ public class PessoalSaudeFinancasEducacaoDataController {
         Map<String, Object> strFinantialData = new HashMap<String, Object>(mapStrTabFamiliaCadunico);
 
         jsonFinantialData = new JSONObject(strFinantialData);
-        String strVlrRendaFamiliar = jsonFinantialData.getString("vlrRendaMediaFam");
-        String strQtdPessoasDomicFam = jsonFinantialData.getString("qtdPessoasDomicFam");
-        Integer rendaPerCapta = Integer.parseInt(strVlrRendaFamiliar)/Integer.parseInt(strQtdPessoasDomicFam);
-        jsonFinantialData.put("RendaperCaptaFamiliar", rendaPerCapta);
+        // Concatenando o endereço do cidadão
+        String strFullAddress = jsonFinantialData.getString("nomTipLogradouroFam").trim() + " "
+                + jsonFinantialData.getString("nomTituloLogradouroFam").trim() + " "
+                + jsonFinantialData.getString("nomLogradouroFam").trim()  + " - "
+                + jsonFinantialData.getString("numLogradouroFam").trim() + ", "
+                + jsonFinantialData.getString("nomLocalidadeFam").trim()
+                + " SÃO PAULO - BRASIL";
 
+        // Mudando o formato da renda familiar para float
+        String strVlrRendaFamiliar = jsonFinantialData.getString("vlrRendaMediaFam");
+        StringBuilder stringBuilder = new StringBuilder(strVlrRendaFamiliar);
+        String dotStrVlrRendaFamiliar = stringBuilder.toString();
+        Float vlrRendaFamiliar = Float.parseFloat(dotStrVlrRendaFamiliar);
+        jsonFinantialData.put("vlrRendaMediaFam", vlrRendaFamiliar);
         strFinantialData = mapper.readValue(jsonFinantialData.toString(), HashMap.class);
 
         return strFinantialData;
@@ -416,7 +425,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
 
     // Utilização do método findFamiliaCadunico
     // Controller(s) que utilizam: PessoalSaudeFinancasEducacaoDataController
-    // Método que utilizam dele: FinantialData
+    // Método que utilizam dele: FinantialData, PersonalData
     private TabFamiliaCadunico findFamiliaCadunico(String cdFamiliarFam){
         TabFamiliaCadunico Response;
 

@@ -49,6 +49,33 @@ public class TelaDetalhadaMainController {
 
         Map<String, Object> strCidadaoDetalhado = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
 
+        // Remover o que não será utilizado no frontend
+        JSONObject jsonObjStrCidadaoDetalhado = new JSONObject(strCidadaoDetalhado);
+
+        // Dados Escolares
+        jsonObjStrCidadaoDetalhado.remove("indFrequentaEscolaMemb");
+        jsonObjStrCidadaoDetalhado.remove("codAnoSerieFrequentaMemb");
+        jsonObjStrCidadaoDetalhado.remove("codCursoFrequentaMemb");
+        jsonObjStrCidadaoDetalhado.remove("codAnoSerieFrequentouMemb");
+        jsonObjStrCidadaoDetalhado.remove("codCursoFrequentouPessoaMemb");
+        jsonObjStrCidadaoDetalhado.remove("nomTipLogradouroFam");
+
+        // Dados Pessoais
+        jsonObjStrCidadaoDetalhado.remove("ciCidadao");
+        jsonObjStrCidadaoDetalhado.remove("ciTipoSexo");
+        jsonObjStrCidadaoDetalhado.remove("ciRaca");
+        jsonObjStrCidadaoDetalhado.remove("ciRacaObservada");
+        jsonObjStrCidadaoDetalhado.remove("ciSitCidadao");
+        jsonObjStrCidadaoDetalhado.remove("ciPaisOrigem");
+        jsonObjStrCidadaoDetalhado.remove("indTrabalhoInfantilFam");
+        jsonObjStrCidadaoDetalhado.remove("codPrincipalTrabMemb");
+
+        // Endereço
+        jsonObjStrCidadaoDetalhado.remove("nomLogradouroFam");
+        jsonObjStrCidadaoDetalhado.remove("nomLocalidadeFam");
+        jsonObjStrCidadaoDetalhado.remove("nomTituloLogradouroFam");
+        jsonObjStrCidadaoDetalhado.remove("numLogradouroFam");
+
         return new ResponseEntity<>(strCidadaoDetalhado, HttpStatus.OK);
     }
 }
