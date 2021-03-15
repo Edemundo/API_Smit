@@ -2,6 +2,7 @@ package com.smads.covs.trajetoria_cidadao.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class TabFamiliaCadunico {
@@ -17,12 +18,13 @@ public class TabFamiliaCadunico {
     private String nomTituloLogradouroFam;
     private String nomLogradouroFam;
     private String numLogradouroFam;
+    private Date dtCarga;
 
     public TabFamiliaCadunico(String codFamiliarFam, String qtdPessoasDomicFam,
                               String vlrRendaMediaFam, String indTrabalhoInfantilFam,
                               String nomLocalidadeFam, String nomTipLogradouroFam,
                               String nomTituloLogradouroFam, String nomLogradouroFam,
-                              String numLogradouroFam) {
+                              String numLogradouroFam, Date dtCarga) {
         this.codFamiliarFam = codFamiliarFam;
         this.qtdPessoasDomicFam = qtdPessoasDomicFam;
         this.vlrRendaMediaFam = vlrRendaMediaFam;
@@ -32,6 +34,7 @@ public class TabFamiliaCadunico {
         this.nomTituloLogradouroFam = nomTituloLogradouroFam;
         this.nomLogradouroFam = nomLogradouroFam;
         this.numLogradouroFam = numLogradouroFam;
+        this.dtCarga = dtCarga;
     }
 
     public TabFamiliaCadunico(String codFamiliarFam) {
@@ -44,7 +47,7 @@ public class TabFamiliaCadunico {
     public TabFamiliaCadunico(String qtdPessoasDomicFam, String vlrRendaMediaFam,
                               String indTrabalhoInfantilFam, String nomLocalidadeFam,
                               String nomTipLogradouroFam, String nomTituloLogradouroFam,
-                              String nomLogradouroFam, String numLogradouroFam) {
+                              String nomLogradouroFam, String numLogradouroFam, Date dtCarga) {
         this.qtdPessoasDomicFam = qtdPessoasDomicFam;
         this.vlrRendaMediaFam = vlrRendaMediaFam;
         this.indTrabalhoInfantilFam = indTrabalhoInfantilFam;
@@ -53,6 +56,7 @@ public class TabFamiliaCadunico {
         this.nomTituloLogradouroFam = nomTituloLogradouroFam;
         this.nomLogradouroFam = nomLogradouroFam;
         this.numLogradouroFam = numLogradouroFam;
+        this.dtCarga = dtCarga;
     }
 
     public String getCodFamiliarFam() {
@@ -91,6 +95,10 @@ public class TabFamiliaCadunico {
         return numLogradouroFam;
     }
 
+    public Date getDtCarga() {
+        return dtCarga;
+    }
+
     @Override
     public String toString() {
         return "TabFamiliaCadunico{" +
@@ -103,6 +111,7 @@ public class TabFamiliaCadunico {
                 ", nomTituloLogradouroFam='" + nomTituloLogradouroFam + '\'' +
                 ", nomLogradouroFam='" + nomLogradouroFam + '\'' +
                 ", numLogradouroFam='" + numLogradouroFam + '\'' +
+                ", dtCarga='" + dtCarga + '\'' +
                 '}';
     }
 }

@@ -352,12 +352,16 @@ public class PessoalSaudeFinancasEducacaoDataController {
 
         jsonFinantialData = new JSONObject(strFinantialData);
         // Concatenando o endereço do cidadão
+
+        Integer numEndereco = Integer.parseInt(jsonFinantialData.getString("numLogradouroFam").trim());
+
         String strFullAddress = jsonFinantialData.getString("nomTipLogradouroFam").trim() + " "
                 + jsonFinantialData.getString("nomTituloLogradouroFam").trim() + " "
                 + jsonFinantialData.getString("nomLogradouroFam").trim()  + " - "
-                + jsonFinantialData.getString("numLogradouroFam").trim() + ", "
+                + numEndereco + ", "
                 + jsonFinantialData.getString("nomLocalidadeFam").trim()
                 + " SÃO PAULO - BRASIL";
+        jsonFinantialData.put("descEndereco", strFullAddress);
 
         // Mudando o formato da renda familiar para float
         String strVlrRendaFamiliar = jsonFinantialData.getString("vlrRendaMediaFam");
@@ -365,6 +369,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
         String dotStrVlrRendaFamiliar = stringBuilder.toString();
         Float vlrRendaFamiliar = Float.parseFloat(dotStrVlrRendaFamiliar);
         jsonFinantialData.put("vlrRendaMediaFam", vlrRendaFamiliar);
+
         strFinantialData = mapper.readValue(jsonFinantialData.toString(), HashMap.class);
 
         return strFinantialData;
