@@ -1,5 +1,6 @@
 package com.smads.covs.trajetoria_cidadao.service;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 import com.smads.covs.trajetoria_cidadao.repository.DimCidadaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,7 @@ public class DimCidadaoService {
     public DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
 
-
         Response = dimCidadaoRepository.findByNrCpf(nrCpf);
-
         if(Response != null){
             return Response;
         }

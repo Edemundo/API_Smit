@@ -3,7 +3,6 @@ package com.smads.covs.trajetoria_cidadao.controller;
 import com.smads.covs.trajetoria_cidadao.model.*;
 import com.smads.covs.trajetoria_cidadao.service.*;
 
-import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -20,8 +19,6 @@ import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Date;
-
-
 
 @Controller
 public class PessoalSaudeFinancasEducacaoDataController {

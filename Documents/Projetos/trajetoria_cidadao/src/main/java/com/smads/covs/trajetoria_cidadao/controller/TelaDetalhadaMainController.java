@@ -33,12 +33,12 @@ public class TelaDetalhadaMainController {
     private ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     private ObjectMapper mapper = new ObjectMapper();
 
-    public TelaDetalhadaMainController(PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController/*,
-                                       SISADataController sisaDataController,
+    public TelaDetalhadaMainController(PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController,
+                                       SISADataController sisaDataController/*,
                                        SISCRDataController siscrDataController,
                                        SISRUADataController sisruaDataController*/) {
         this.pessoalSaudeFinancasEducacaoDataController = pessoalSaudeFinancasEducacaoDataController;
-//        this.sisaDataController = sisaDataController;
+        this.sisaDataController = sisaDataController;
 //        this.siscrDataController = siscrDataController;
 //        this.sisruaDataController = sisruaDataController;
     }
@@ -46,36 +46,37 @@ public class TelaDetalhadaMainController {
     @PostMapping("/cidadao/detalhes")
     @ResponseBody
     public ResponseEntity<?> detalhesCidadao(@RequestBody DimCidadao dimCidadao) throws IOException, JSONException {
-
-        Map<String, Object> strCidadaoDetalhado = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
-
-
+        Map<String, Object> strPSFEData = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
         // Remover o que não será utilizado no frontend
-        JSONObject jsonObjStrCidadaoDetalhado = new JSONObject(strCidadaoDetalhado);
+        JSONObject jsonObjStrPSFEData = new JSONObject(strPSFEData);
         // Dados Escolares
-        jsonObjStrCidadaoDetalhado.remove("indFrequentaEscolaMemb");
-        jsonObjStrCidadaoDetalhado.remove("codAnoSerieFrequentaMemb");
-        jsonObjStrCidadaoDetalhado.remove("codCursoFrequentaMemb");
-        jsonObjStrCidadaoDetalhado.remove("codAnoSerieFrequentouMemb");
-        jsonObjStrCidadaoDetalhado.remove("codCursoFrequentouPessoaMemb");
-        jsonObjStrCidadaoDetalhado.remove("nomTipLogradouroFam");
+        jsonObjStrPSFEData.remove("indFrequentaEscolaMemb");
+        jsonObjStrPSFEData.remove("codAnoSerieFrequentaMemb");
+        jsonObjStrPSFEData.remove("codCursoFrequentaMemb");
+        jsonObjStrPSFEData.remove("codAnoSerieFrequentouMemb");
+        jsonObjStrPSFEData.remove("codCursoFrequentouPessoaMemb");
+        jsonObjStrPSFEData.remove("nomTipLogradouroFam");
         // Dados Pessoais
-        jsonObjStrCidadaoDetalhado.remove("ciCidadao");
-        jsonObjStrCidadaoDetalhado.remove("ciTipoSexo");
-        jsonObjStrCidadaoDetalhado.remove("ciRaca");
-        jsonObjStrCidadaoDetalhado.remove("ciRacaObservada");
-        jsonObjStrCidadaoDetalhado.remove("ciSitCidadao");
-        jsonObjStrCidadaoDetalhado.remove("ciPaisOrigem");
-        jsonObjStrCidadaoDetalhado.remove("indTrabalhoInfantilFam");
-        jsonObjStrCidadaoDetalhado.remove("codPrincipalTrabMemb");
-        jsonObjStrCidadaoDetalhado.remove("codParentescoRfPessoa");
+        jsonObjStrPSFEData.remove("ciCidadao");
+        jsonObjStrPSFEData.remove("ciTipoSexo");
+        jsonObjStrPSFEData.remove("ciRaca");
+        jsonObjStrPSFEData.remove("ciRacaObservada");
+        jsonObjStrPSFEData.remove("ciSitCidadao");
+        jsonObjStrPSFEData.remove("ciPaisOrigem");
+        jsonObjStrPSFEData.remove("indTrabalhoInfantilFam");
+        jsonObjStrPSFEData.remove("codPrincipalTrabMemb");
+        jsonObjStrPSFEData.remove("codParentescoRfPessoa");
         // Endereço
-        jsonObjStrCidadaoDetalhado.remove("nomLogradouroFam");
-        jsonObjStrCidadaoDetalhado.remove("nomLocalidadeFam");
-        jsonObjStrCidadaoDetalhado.remove("nomTituloLogradouroFam");
-        jsonObjStrCidadaoDetalhado.remove("numLogradouroFam");
+        jsonObjStrPSFEData.remove("nomLogradouroFam");
+        jsonObjStrPSFEData.remove("nomLocalidadeFam");
+        jsonObjStrPSFEData.remove("nomTituloLogradouroFam");
+        jsonObjStrPSFEData.remove("numLogradouroFam");
+        strPSFEData = mapper.readValue(jsonObjStrPSFEData.toString(), HashMap.class);
 
-        strCidadaoDetalhado = mapper.readValue(jsonObjStrCidadaoDetalhado.toString(), HashMap.class);
+        Map<String, Object> strSisaData = sisaDataController.SISAData(dimCidadao);
+
+        Map<String, Object> strCidadaoDetalhado = new HashMap<>(strPSFEData);
+        strCidadaoDetalhado.putAll(strSisaData);
 
         return new ResponseEntity<>(strCidadaoDetalhado, HttpStatus.OK);
     }
