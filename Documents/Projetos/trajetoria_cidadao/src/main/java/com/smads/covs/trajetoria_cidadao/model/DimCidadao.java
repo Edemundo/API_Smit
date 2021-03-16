@@ -1,6 +1,5 @@
 package com.smads.covs.trajetoria_cidadao.model;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigInteger;
@@ -20,12 +19,6 @@ public class DimCidadao implements Serializable {
     private Integer ciRacaObservada;
     private Integer ciPaisOrigem;
     private Integer ciSitCidadao;
-//    private Integer cdGrauInstrucao;
-//    private Integer inCidadaoDesaparecido;
-//    private Integer inCidadaoVitimaViolencia;
-//    private Integer inCidadaoNecessitaCuidado;
-//    private Integer inCidadaoSituacaoRua;
-
 
     public DimCidadao() {
     }

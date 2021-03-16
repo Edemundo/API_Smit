@@ -23,19 +23,19 @@ import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 public class TelaDetalhadaMainController {
 
     private PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController;
-    private SISADataController sisaDataController;
-    private SISCRDataController siscrDataController;
-    private SISRUADataController sisruaDataController;
+//    private SISADataController sisaDataController;
+//    private SISCRDataController siscrDataController;
+//    private SISRUADataController sisruaDataController;
 
     private ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     private ObjectMapper mapper = new ObjectMapper();
 
-    public TelaDetalhadaMainController(PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController,
-                                       SISADataController sisaDataController/*,
+    public TelaDetalhadaMainController(PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController/*,
+                                       SISADataController sisaDataController,
                                        SISCRDataController siscrDataController,
                                        SISRUADataController sisruaDataController*/) {
         this.pessoalSaudeFinancasEducacaoDataController = pessoalSaudeFinancasEducacaoDataController;
-        this.sisaDataController = sisaDataController;
+//        this.sisaDataController = sisaDataController;
 //        this.siscrDataController = siscrDataController;
 //        this.sisruaDataController = sisruaDataController;
     }
@@ -43,6 +43,7 @@ public class TelaDetalhadaMainController {
     @PostMapping("/cidadao/detalhes")
     @ResponseBody
     public ResponseEntity<?> detalhesCidadao(@RequestBody DimCidadao dimCidadao) throws IOException, JSONException {
+        System.out.println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII11111111111111111");
         Map<String, Object> strPSFEData = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
         // Remover o que não será utilizado no frontend
         JSONObject jsonObjStrPSFEData = new JSONObject(strPSFEData);
@@ -70,10 +71,10 @@ public class TelaDetalhadaMainController {
         jsonObjStrPSFEData.remove("numLogradouroFam");
         strPSFEData = mapper.readValue(jsonObjStrPSFEData.toString(), HashMap.class);
 
-        Map<String, Object> strSisaData = sisaDataController.SISAData(dimCidadao);
+//        Map<String, Object> strSisaData = sisaDataController.SISAData(dimCidadao);
 
         Map<String, Object> strCidadaoDetalhado = new HashMap<>(strPSFEData);
-        strCidadaoDetalhado.putAll(strSisaData);
+//        strCidadaoDetalhado.putAll(strSisaData);
 
         return new ResponseEntity<>(strCidadaoDetalhado, HttpStatus.OK);
     }

@@ -8,8 +8,8 @@ import java.util.Map;
 @Controller
 public class SISADataController {
 
-    public Map<String, Object> SISAData(DimCidadao dimCidadao) {
-
-        return null;
-    }
+//    public Map<String, Object> SISAData(DimCidadao dimCidadao) {
+//
+//        return null;
+//    }
 }
