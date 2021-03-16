@@ -1,6 +1,5 @@
 package com.smads.covs.trajetoria_cidadao.service;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 import com.smads.covs.trajetoria_cidadao.repository.DimCidadaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,31 +7,32 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class DimCidadaoService {
     private final DimCidadaoRepository dimCidadaoRepository;
-    private DimCidadao Response;
+    private List<DimCidadao> Response;
 
     @Autowired
     public DimCidadaoService(DimCidadaoRepository dimCidadaoRepository) {
         this.dimCidadaoRepository = dimCidadaoRepository;
     }
 
-    public DimCidadao findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
+    public List<DimCidadao> findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
 
-        Response = dimCidadaoRepository.findByNrCpf(nrCpf);
+        Response = dimCidadaoRepository.findAllByNrCpf(nrCpf);
         if(Response != null){
             return Response;
         }
         else{
-            Response = dimCidadaoRepository.findByCdNis(cdNis);
+            Response = dimCidadaoRepository.findAllByCdNis(cdNis);
             if(Response != null){
                 return Response;
             }
             else{
-                Response = dimCidadaoRepository.findByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
+                Response = dimCidadaoRepository.findAllByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
                 if(Response != null){
                     return Response;
                 }

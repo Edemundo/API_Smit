@@ -1,12 +1,9 @@
 package com.smads.covs.trajetoria_cidadao.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 
-import org.apache.http.HttpEntity;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
