@@ -23,24 +23,13 @@ public class DimCidadaoService {
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc){
 
         Response = dimCidadaoRepository.findAllByNrCpf(nrCpf);
-        if(Response != null){
-            return Response;
-        }
-        else{
+        if(Response.isEmpty()){
             Response = dimCidadaoRepository.findAllByCdNis(cdNis);
-            if(Response != null){
-                return Response;
-            }
-            else{
+            if(Response.isEmpty()){
                 Response = dimCidadaoRepository.findAllByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
-                if(Response != null){
-                    return Response;
-                }
-                else{
-                    return null;
-                }
             }
         }
+        return Response;
     }
 
 }

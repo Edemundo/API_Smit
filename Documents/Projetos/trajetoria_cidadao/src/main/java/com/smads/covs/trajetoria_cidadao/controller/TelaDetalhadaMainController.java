@@ -43,7 +43,6 @@ public class TelaDetalhadaMainController {
     @PostMapping("/cidadao/detalhes")
     @ResponseBody
     public ResponseEntity<?> detalhesCidadao(@RequestBody DimCidadao dimCidadao) throws IOException, JSONException {
-        System.out.println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII11111111111111111");
         Map<String, Object> strPSFEData = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
         // Remover o que não será utilizado no frontend
         JSONObject jsonObjStrPSFEData = new JSONObject(strPSFEData);
