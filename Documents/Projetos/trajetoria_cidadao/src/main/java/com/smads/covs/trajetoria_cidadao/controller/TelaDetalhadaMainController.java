@@ -54,7 +54,6 @@ public class TelaDetalhadaMainController {
         jsonObjStrPSFEData.remove("codCursoFrequentouPessoaMemb");
         jsonObjStrPSFEData.remove("nomTipLogradouroFam");
         // Dados Pessoais
-        jsonObjStrPSFEData.remove("ciCidadao");
         jsonObjStrPSFEData.remove("ciTipoSexo");
         jsonObjStrPSFEData.remove("ciRaca");
         jsonObjStrPSFEData.remove("ciRacaObservada");

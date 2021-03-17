@@ -2,7 +2,6 @@ package com.smads.covs.trajetoria_cidadao.controller;
 
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 import com.smads.covs.trajetoria_cidadao.service.DimCidadaoService;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

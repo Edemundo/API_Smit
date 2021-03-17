@@ -90,6 +90,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
         LocalDate dtHoje = LocalDate.now();
         LocalDate ldDtNasc = dtResultDtNasc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Integer ageCidadao = Period.between(ldDtNasc, dtHoje).getYears();
+
         jsonObjCidadaoDetalhado.put("dtNasc", strDtResultDtNasc);
         jsonObjCidadaoDetalhado.put("ageCidadao",ageCidadao);
 
