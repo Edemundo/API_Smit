@@ -117,36 +117,58 @@ public class PessoalSaudeFinancasEducacaoDataController {
         // Calculando trabalho do cidadão
         String strCodTrabMemb = jsonObjHealthData.getString("codPrincipalTrabMemb");
         String descTrabMemb;
-        if(strCodTrabMemb != null && strCodTrabMemb != "null"){
+        if(strCodTrabMemb != null && strCodTrabMemb != "null") {
             Integer codTrabMemb = Integer.parseInt(strCodTrabMemb);
 
-            if(codTrabMemb == 1)
-                descTrabMemb = "TRABALHADOR POR CONTA PROPRIA (BICO, AUTONOMO)";
-            else if(codTrabMemb == 2)
-                descTrabMemb = "TRABALHADOR TEMPORARIO EM AREA RURAL";
-            else if(codTrabMemb == 3)
-                descTrabMemb = "EMPREGADO SEM CARTEIRA DE TRABALHO ASSINADA";
-            else if(codTrabMemb == 4)
-                descTrabMemb = "EMPREGADO COM CARTEIRA DE TRABALHO ASSINADA";
-            else if(codTrabMemb == 5)
-                descTrabMemb = "TRABALHADOR DOMESTICO SEM CARTEIRA DE TRABALHO ASSINADA";
-            else if(codTrabMemb == 6)
-                descTrabMemb = "TRABALHADOR DOMESTICO COM CARTEIRA DE TRABALHO ASSINADA";
-            else if(codTrabMemb == 7)
-                descTrabMemb = "TRABALHADOR NAO-REMUNERADO";
-            else if(codTrabMemb == 8)
-                descTrabMemb = "MILITAR OU SERVIDOR PUBLICO";
-            else if(codTrabMemb == 9)
-                descTrabMemb = "EMPREGADOR";
-            else if(codTrabMemb == 10)
-                descTrabMemb = "ESTAGIARIO";
-            else if(codTrabMemb == 11)
-                descTrabMemb = "APRENDIZ";
-            else
-                descTrabMemb = "DESEMPREGADO / NÃO INFORMADO";
+            switch(codTrabMemb) {
+                case 1:
+                    descTrabMemb = "TRABALHADOR POR CONTA PROPRIA (BICO, AUTONOMO)";
+                    break;
 
-        }
-        else{
+                case 2:
+                    descTrabMemb = "TRABALHADOR TEMPORARIO EM AREA RURAL";
+                    break;
+
+                case 3:
+                    descTrabMemb = "EMPREGADO SEM CARTEIRA DE TRABALHO ASSINADA";
+                    break;
+
+                case 4:
+                    descTrabMemb = "EMPREGO COM CARTEIRA DE TRABALHO ASSINADA";
+                    break;
+
+                case 5:
+                    descTrabMemb = "TRABALHADOR DOMESTICO SEM CARTEIRA DE TRABALHO ASSINADA";
+                    break;
+
+                case 6:
+                    descTrabMemb = "TRABALHADOR DOMESTICO COM CARTEIRA DE TRABALHO ASSINADA";
+                    break;
+
+                case 7:
+                    descTrabMemb = "TRABALHADOR NAO-REMUNERADO";
+                    break;
+
+                case 8:
+                    descTrabMemb = "MILITAR OU SERVIDOR PUBLICO";
+                    break;
+
+                case 9:
+                    descTrabMemb = "EMPREGADOR";
+                    break;
+
+                case 10:
+                    descTrabMemb = "ESTAGIARIO";
+                    break;
+
+                case 11:
+                    descTrabMemb = "DESEMPREGADO / NÃO INFORMADO";
+                    break;
+
+                default:
+                    descTrabMemb = "DESEMPREGADO / NÃO INFORMADO";
+            }
+        } else {
             descTrabMemb = "DESEMPREGADO / NÃO INFORMADO";
         }
 
@@ -156,18 +178,29 @@ public class PessoalSaudeFinancasEducacaoDataController {
         // Calculando se o cidadão já frequentou a escola
         String strCodFrequentaEscolaMemb = jsonObjHealthData.getString("indFrequentaEscolaMemb");
         String descFrequentaEscolaMemb;
-        if(strCodFrequentaEscolaMemb != null && strCodFrequentaEscolaMemb != "null"){
-                        Integer codFrequentaEscolaMemb = Integer.parseInt(strCodFrequentaEscolaMemb);
-            if(codFrequentaEscolaMemb == 1)
-                descFrequentaEscolaMemb = "Sim, rede pública";
-            else if(codFrequentaEscolaMemb == 2)
-                descFrequentaEscolaMemb = "Não, rede particular";
-            else if(codFrequentaEscolaMemb == 3)
-                descFrequentaEscolaMemb = "Não, já frequentou";
-            else if(codFrequentaEscolaMemb == 4)
-                descFrequentaEscolaMemb = "Nunca frequentou";
-            else
-                descFrequentaEscolaMemb = "Não informado";
+        if(strCodFrequentaEscolaMemb != null && strCodFrequentaEscolaMemb != "null") {
+            Integer codFrequentaEscolaMemb = Integer.parseInt(strCodFrequentaEscolaMemb);
+
+            switch(codFrequentaEscolaMemb) {
+                case 1:
+                    descFrequentaEscolaMemb = "Sim, rede pública";
+                    break;
+
+                case 2:
+                    descFrequentaEscolaMemb = "Não, rede particular";
+                    break;
+
+                case 3:
+                    descFrequentaEscolaMemb = "Não, já frequentou";
+                    break;
+
+                case 4:
+                    descFrequentaEscolaMemb = "Nunca frequentou";
+                    break;
+
+                default:
+                    descFrequentaEscolaMemb = "Não Informado";
+            }
         }
         else{
             descFrequentaEscolaMemb = "Não informado";
@@ -178,40 +211,69 @@ public class PessoalSaudeFinancasEducacaoDataController {
         // Calculando o curso que frequenta o membro
         String strCodCursoFrequentaMemb = jsonObjHealthData.getString("codCursoFrequentaMemb");
         String descCursoFrequentaMemb;
-        if(strCodCursoFrequentaMemb != "null" && strCodCursoFrequentaMemb != null){
+        if(strCodCursoFrequentaMemb != null && strCodCursoFrequentaMemb != "null") {
             Integer codCursoFrequentaMemb = Integer.parseInt(strCodCursoFrequentaMemb);
 
-            if(codCursoFrequentaMemb == 1)
-                descCursoFrequentaMemb = "Creche";
-            else if(codCursoFrequentaMemb == 2)
-                descCursoFrequentaMemb = "Pré-escola (exceto CA)";
-            else if(codCursoFrequentaMemb == 3)
-                descCursoFrequentaMemb = "Classe de Alfabetização - CA";
-            else if(codCursoFrequentaMemb == 4)
-                descCursoFrequentaMemb = "Ensino Fundamental regular (duração 8 anos)";
-            else if(codCursoFrequentaMemb == 5)
-                descCursoFrequentaMemb = "Ensino Fundamental regular (duração 9 anos)";
-            else if(codCursoFrequentaMemb == 6)
-                descCursoFrequentaMemb = "Ensino Fundamental especial";
-            else if(codCursoFrequentaMemb == 7)
-                descCursoFrequentaMemb = "Ensino Médio regular";
-            else if(codCursoFrequentaMemb == 8)
-                descCursoFrequentaMemb = "Ensino Médio especial";
-            else if(codCursoFrequentaMemb == 9)
-                descCursoFrequentaMemb = "Ensino Fundamental EJA - séries iniciais (Supletivo - 1ª a 4ª)";
-            else if(codCursoFrequentaMemb == 10)
-                descCursoFrequentaMemb = "Ensino Fundamental EJA - séries finais (Supletivo - 5ª a 8ª)";
-            else if(codCursoFrequentaMemb == 11)
-                descCursoFrequentaMemb = "Ensino Médio EJA (Supletivo)";
-            else if(codCursoFrequentaMemb == 12)
-                descCursoFrequentaMemb = "Alfabetização para adultos";
-            else if(codCursoFrequentaMemb == 13)
-                descCursoFrequentaMemb = "Superior, Aperfeiçoamento, Especialização, Mestrado, Doutorado";
-            else if(codCursoFrequentaMemb == 14)
-                descCursoFrequentaMemb = "Pré-vestibular";
-            else
-                descCursoFrequentaMemb = "Não frequenta / Não informado";
+            switch(codCursoFrequentaMemb) {
+                case 1:
+                    descCursoFrequentaMemb = "Creche";
+                    break;
 
+                case 2:
+                    descCursoFrequentaMemb = "Pré-escola (exceto CA)";
+                    break;
+
+                case 3:
+                    descCursoFrequentaMemb = "Classe de Alfabetização - CA";
+                    break;
+
+                case 4:
+                    descCursoFrequentaMemb = "Ensino Fundamental regular (duração 8 anos)";
+                    break;
+
+                case 5:
+                    descCursoFrequentaMemb = "Ensino Fundamental regular (duração 9 anos)";
+                    break;
+
+                case 6:
+                    descCursoFrequentaMemb = "Ensino Fundamental especial";
+                    break;
+
+                case 7:
+                    descCursoFrequentaMemb = "Ensino Médio regular";
+                    break;
+
+                case 8:
+                    descCursoFrequentaMemb = "Ensino Médio especial";
+                    break;
+
+                case 9:
+                    descCursoFrequentaMemb = "Ensino Fundamental EJA - séries iniciais (Supletivo - 1ª a 4ª)";
+                    break;
+
+                case 10:
+                    descCursoFrequentaMemb = "Ensino Fundamental EJA - séries finais (Supletivo - 5ª a 8ª)";
+                    break;
+
+                case 11:
+                    descCursoFrequentaMemb = "Ensino Médio EJA (Supletivo)";
+                    break;
+
+                case 12:
+                    descCursoFrequentaMemb = "Alfabetização para adultos";
+                    break;
+
+                case 13:
+                    descCursoFrequentaMemb = "Superior, Aperfeiçoamento, Especialização, Mestrado, Doutorado";
+                    break;
+
+                case 14:
+                    descCursoFrequentaMemb = "Pré-vestibular";
+                    break;
+
+                default:
+                    descCursoFrequentaMemb = "Não frequenta / Não informado";
+            }
         }
         else{
             descCursoFrequentaMemb = "Não frequenta / Não informado";
@@ -222,31 +284,53 @@ public class PessoalSaudeFinancasEducacaoDataController {
         // Calculando o ano/série que frequenta
         String strCodAnoSerieFrequenta = jsonObjHealthData.getString("codAnoSerieFrequentaMemb");
         String descAnoSerieFrequenta;
-        if(strCodAnoSerieFrequenta != null && strCodAnoSerieFrequenta != "null"){
+        if(strCodAnoSerieFrequenta != null && strCodAnoSerieFrequenta != "null") {
             Integer codAnoSerieFrequenta = Integer.parseInt(strCodAnoSerieFrequenta);
 
-            if(codAnoSerieFrequenta == 1)
-                descAnoSerieFrequenta = "Primeiro(a)";
-            else if(codAnoSerieFrequenta == 2)
-                descAnoSerieFrequenta = "Segundo(a)";
-            else if(codAnoSerieFrequenta == 3)
-                descAnoSerieFrequenta = "Terceiro(a)";
-            else if(codAnoSerieFrequenta == 4)
-                descAnoSerieFrequenta = "Quarto(a)";
-            else if(codAnoSerieFrequenta == 5)
-                descAnoSerieFrequenta = "Quinto(a)";
-            else if(codAnoSerieFrequenta == 6)
-                descAnoSerieFrequenta = "Sexto(a)";
-            else if(codAnoSerieFrequenta == 7)
-                descAnoSerieFrequenta = "Sétimo(a)";
-            else if(codAnoSerieFrequenta == 8)
-                descAnoSerieFrequenta = "Oitavo(a)";
-            else if(codAnoSerieFrequenta == 9)
-                descAnoSerieFrequenta = "Nono(a)";
-            else if(codAnoSerieFrequenta == 10)
-                descAnoSerieFrequenta = "Curso não-seriado";
-            else
-                descAnoSerieFrequenta = "Não frequenta / Não informado";
+            switch(codAnoSerieFrequenta) {
+                case 1:
+                    descAnoSerieFrequenta = "Primeiro(a)";
+                    break;
+
+                case 2:
+                    descAnoSerieFrequenta = "Segundo(a)";
+                    break;
+
+                case 3:
+                    descAnoSerieFrequenta = "Terceiro(a)";
+                    break;
+
+                case 4:
+                    descAnoSerieFrequenta = "Quarto(a)";
+                    break;
+
+                case 5:
+                    descAnoSerieFrequenta = "Quinto(a)";
+                    break;
+
+                case 6:
+                    descAnoSerieFrequenta = "Sexto(a)";
+                    break;
+
+                case 7:
+                    descAnoSerieFrequenta = "Sétimo(a)";
+                    break;
+
+                case 8:
+                    descAnoSerieFrequenta = "Oitavo(a)";
+                    break;
+
+                case 9:
+                    descAnoSerieFrequenta = "Nono(a)";
+                    break;
+
+                case 10:
+                    descAnoSerieFrequenta = "Curso não-seriado";
+                    break;
+
+                default:
+                    descAnoSerieFrequenta = "Não frequenta / Não informado";
+            }
         }
         else{
             descAnoSerieFrequenta = "Não frequenta / Não informado";
@@ -257,43 +341,73 @@ public class PessoalSaudeFinancasEducacaoDataController {
         // Calculando o curso que o cidadão já frequentou
         String strCodCursoFrequentou = jsonObjHealthData.getString("codCursoFrequentouPessoaMemb");
         String descCursoFrequentou;
-        if(strCodCursoFrequentou != null && strCodCursoFrequentou != "null"){
+        if(strCodCursoFrequentou != null && strCodCursoFrequentou != "null") {
             Integer codCursoFrequentou = Integer.parseInt(strCodCursoFrequentou);
 
+            switch(codCursoFrequentou) {
+                case 1:
+                    descCursoFrequentou = "Creche";
+                    break;
 
-            if(codCursoFrequentou == 1)
-                descCursoFrequentou = "Creche";
-            else if(codCursoFrequentou == 2)
-                descCursoFrequentou = "Pré-escola (exceto CA)";
-            else if(codCursoFrequentou == 3)
-                descCursoFrequentou = "Classe de Alfabetização - CA";
-            else if(codCursoFrequentou == 4)
-                descCursoFrequentou = "Ensino Fundamental 1ª a 4ª séries, Elementar (Primário), Primeira fase do 1º grau";
-            else if(codCursoFrequentou == 5)
-                descCursoFrequentou = "Ensino Fundamental 5ª a 8ª séries, Médio 1º ciclo (Ginasial), Segunda fase do 1º grau";
-            else if(codCursoFrequentou == 6)
-                descCursoFrequentou = "Ensino Fundamental regular (duração 9 anos)";
-            else if(codCursoFrequentou == 7)
-                descCursoFrequentou = "Ensino Fundamental especial";
-            else if(codCursoFrequentou == 8)
-                descCursoFrequentou = "Ensino Médio, 2ºgrau, Médio 2º ciclo (Científico, Clássico, Técnico, Normal)";
-            else if(codCursoFrequentou == 9)
-                descCursoFrequentou = "Ensino Médio especial";
-            else if(codCursoFrequentou == 10)
-                descCursoFrequentou = "Ensino Fundamental EJA - séries iniciais (Supletivo - 1ª a 4ª)";
-            else if(codCursoFrequentou == 11)
-                descCursoFrequentou = "Ensino Fundamental EJA - séries finais (Supletivo - 5ª a 8ª)";
-            else if(codCursoFrequentou == 12)
-                descCursoFrequentou = "Ensino Médio EJA (Supletivo)";
-            else if(codCursoFrequentou == 13)
-                descCursoFrequentou = "Superior, Aperfeiçoamento, Especialização, Mestrado, Doutorado";
-            else if(codCursoFrequentou == 14)
-                descCursoFrequentou = "Alfabetização para Adultos (Mobral, etc.)";
-            else if(codCursoFrequentou == 15)
-                descCursoFrequentou = "Nenhum";
-            else
-                descCursoFrequentou = "Não informado";
+                case 2:
+                    descCursoFrequentou = "Pré-escola (exceto CA)";
+                    break;
 
+                case 3:
+                    descCursoFrequentou = "Classe de Alfabetização - CA";
+                    break;
+
+                case 4:
+                    descCursoFrequentou = "Ensino Fundamental 1ª a 4ª séries, Elementar (Primário), Primeira fase do 1º grau";
+                    break;
+
+                case 5:
+                    descCursoFrequentou = "Ensino Fundamental 5ª a 8ª séries, Médio 1º ciclo (Ginasial), Segunda fase do 1º grau";
+                    break;
+
+                case 6:
+                    descCursoFrequentou = "Ensino Fundamental regular (duração 9 anos)";
+                    break;
+
+                case 7:
+                    descCursoFrequentou = "Ensino Fundamental especial";
+                    break;
+
+                case 8:
+                    descCursoFrequentou = "Ensino Médio, 2ºgrau, Médio 2º ciclo (Científico, Clássico, Técnico, Normal)";
+                    break;
+
+                case 9:
+                    descCursoFrequentou = "Ensino Médio especial";
+                    break;
+
+                case 10:
+                    descCursoFrequentou = "Ensino Fundamental EJA - séries iniciais (Supletivo - 1ª a 4ª)";
+                    break;
+
+                case 11:
+                    descCursoFrequentou = "Ensino Fundamental EJA - séries finais (Supletivo - 5ª a 8ª)";
+                    break;
+
+                case 12:
+                    descCursoFrequentou = "Ensino Médio EJA (Supletivo)";
+                    break;
+
+                case 13:
+                    descCursoFrequentou = "Superior, Aperfeiçoamento, Especialização, Mestrado, Doutorado";
+                    break;
+
+                case 14:
+                    descCursoFrequentou = "Alfabetização para Adultos (Mobral, etc.)";
+                    break;
+
+                case 15:
+                    descCursoFrequentou = "Nenhum";
+                    break;
+
+                default:
+                    descCursoFrequentou = "Não informado";
+            }
         }
         else{
             descCursoFrequentou = "Não informado";
@@ -304,31 +418,53 @@ public class PessoalSaudeFinancasEducacaoDataController {
         // Calculando o ano/série que frequenta
         String strCodAnoSerieFrequentou = jsonObjHealthData.getString("codAnoSerieFrequentouMemb");
         String descAnoSerieFrequentou;
-        if(strCodAnoSerieFrequentou != null && strCodAnoSerieFrequentou != "null"){
+        if(strCodAnoSerieFrequentou != null && strCodAnoSerieFrequentou != "null") {
             Integer codAnoSerieFrequentou = Integer.parseInt(strCodAnoSerieFrequentou);
 
-            if(codAnoSerieFrequentou == 1)
-                descAnoSerieFrequentou = "Primeiro(a)";
-            else if(codAnoSerieFrequentou == 2)
-                descAnoSerieFrequentou = "Segundo(a)";
-            else if(codAnoSerieFrequentou == 3)
-                descAnoSerieFrequentou = "Terceiro(a)";
-            else if(codAnoSerieFrequentou == 4)
-                descAnoSerieFrequentou = "Quarto(a)";
-            else if(codAnoSerieFrequentou == 5)
-                descAnoSerieFrequentou = "Quinto(a)";
-            else if(codAnoSerieFrequentou == 6)
-                descAnoSerieFrequentou = "Sexto(a)";
-            else if(codAnoSerieFrequentou == 7)
-                descAnoSerieFrequentou = "Sétimo(a)";
-            else if(codAnoSerieFrequentou == 8)
-                descAnoSerieFrequentou = "Oitavo(a)";
-            else if(codAnoSerieFrequentou == 9)
-                descAnoSerieFrequentou = "Nono(a)";
-            else if(codAnoSerieFrequentou == 10)
-                descAnoSerieFrequentou = "Curso não-seriado";
-            else
-                descAnoSerieFrequentou = "Não frequentou / Não informado";
+            switch(codAnoSerieFrequentou) {
+                case 1:
+                    descAnoSerieFrequentou = "Primeiro(a)";
+                    break;
+
+                case 2:
+                    descAnoSerieFrequentou = "Segundo(a)";
+                    break;
+
+                case 3:
+                    descAnoSerieFrequentou = "Terceiro(a)";
+                    break;
+
+                case 4:
+                    descAnoSerieFrequentou = "Quarto(a)";
+                    break;
+
+                case 5:
+                    descAnoSerieFrequentou = "Quinto(a)";
+                    break;
+
+                case 6:
+                    descAnoSerieFrequentou = "Sexto(a)";
+                    break;
+
+                case 7:
+                    descAnoSerieFrequentou = "Sétimo(a)";
+                    break;
+
+                case 8:
+                    descAnoSerieFrequentou = "Oitavo(a)";
+                    break;
+
+                case 9:
+                    descAnoSerieFrequentou = "Nono(a)";
+                    break;
+
+                case 10:
+                    descAnoSerieFrequentou = "Curso não-seriado";
+                    break;
+
+                default:
+                    descAnoSerieFrequentou = "Não frequentou / Não informado";
+            }
         }
         else{
             descAnoSerieFrequentou = "Não frequentou / Não informado";
