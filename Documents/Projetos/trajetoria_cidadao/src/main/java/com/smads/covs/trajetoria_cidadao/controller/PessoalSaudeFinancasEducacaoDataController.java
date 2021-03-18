@@ -54,30 +54,60 @@ public class PessoalSaudeFinancasEducacaoDataController {
         strPSFEData.putAll(strHealthData);
         strPSFEData.putAll(strFinantialData);
 
+        // Remover o que não será utilizado no frontend
+        JSONObject jsonObjStrPSFEData = new JSONObject(strPSFEData);
+        // Dados Escolares
+        jsonObjStrPSFEData.remove("indFrequentaEscolaMemb");
+        jsonObjStrPSFEData.remove("codAnoSerieFrequentaMemb");
+        jsonObjStrPSFEData.remove("codCursoFrequentaMemb");
+        jsonObjStrPSFEData.remove("codAnoSerieFrequentouMemb");
+        jsonObjStrPSFEData.remove("codCursoFrequentouPessoaMemb");
+        jsonObjStrPSFEData.remove("nomTipLogradouroFam");
+        // Dados Pessoais
+        jsonObjStrPSFEData.remove("ciTipoSexo");
+        jsonObjStrPSFEData.remove("ciRaca");
+        jsonObjStrPSFEData.remove("ciRacaObservada");
+        jsonObjStrPSFEData.remove("ciSitCidadao");
+        jsonObjStrPSFEData.remove("ciPaisOrigem");
+        jsonObjStrPSFEData.remove("indTrabalhoInfantilFam");
+        jsonObjStrPSFEData.remove("codPrincipalTrabMemb");
+        jsonObjStrPSFEData.remove("codParentescoRfPessoa");
+        // Endereço
+        jsonObjStrPSFEData.remove("nomLogradouroFam");
+        jsonObjStrPSFEData.remove("nomLocalidadeFam");
+        jsonObjStrPSFEData.remove("nomTituloLogradouroFam");
+        jsonObjStrPSFEData.remove("numLogradouroFam");
+        strPSFEData = mapper.readValue(jsonObjStrPSFEData.toString(), HashMap.class);
+
         return strPSFEData;
     }
 
     public Map<String, Object> PersonalData(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
 
         String strDimCidadao = objectWriter.writeValueAsString(dimCidadao);
+        Map<String, Object> mapStrDimCidadao = mapper.readValue(strDimCidadao, Map.class);
+        Map<String, Object> strPersonalData = new HashMap<String, Object>(mapStrDimCidadao);
 
         DimRaca racaCidadao = findRacaCidadao(dimCidadao.getCiRacaObservada());
         String strRacaCidadao = objectWriter.writeValueAsString(racaCidadao);
+        if(strRacaCidadao != null){
+            Map<String, Object> mapStrRacaCidadao = mapper.readValue(strRacaCidadao, Map.class);
+            strPersonalData.putAll(mapStrRacaCidadao);
+        }
 
         DimTipoSexo sexoCidadao = findTipoSexo(dimCidadao.getCiTipoSexo());
         String strSexoCidadao = objectWriter.writeValueAsString(sexoCidadao);
+        if(strSexoCidadao != null){
+            Map<String, Object> mapStrSexoCidadao = mapper.readValue(strSexoCidadao, Map.class);
+            strPersonalData.putAll(mapStrSexoCidadao);
+        }
 
         DimPaisOrigem paisOrigem = findPaisOrigem(dimCidadao.getCiPaisOrigem());
         String strPaisOrigem = objectWriter.writeValueAsString(paisOrigem);
-
-        Map<String, Object> mapStrDimCidadao = mapper.readValue(strDimCidadao, Map.class);
-        Map<String, Object> mapStrRacaCidadao = mapper.readValue(strRacaCidadao, Map.class);
-        Map<String, Object> mapStrSexoCidadao = mapper.readValue(strSexoCidadao, Map.class);
-        Map<String, Object> mapStrPaisOrigem = mapper.readValue(strPaisOrigem, Map.class);
-        Map<String, Object> strPersonalData = new HashMap<String, Object>(mapStrDimCidadao);
-        strPersonalData.putAll(mapStrRacaCidadao);
-        strPersonalData.putAll(mapStrSexoCidadao);
-        strPersonalData.putAll(mapStrPaisOrigem);
+        if(strPaisOrigem != null){
+            Map<String, Object> mapStrPaisOrigem = mapper.readValue(strPaisOrigem, Map.class);
+            strPersonalData.putAll(mapStrPaisOrigem);
+        }
 
         JSONObject jsonObjCidadaoDetalhado = new JSONObject(strPersonalData);
 
@@ -352,7 +382,8 @@ public class PessoalSaudeFinancasEducacaoDataController {
         return strHealthData;
     }
 
-    public Map<String, Object> FinantialData(Map<String, Object> strHealthData) throws JSONException, JsonProcessingException {
+    public Map<String, Object> FinantialData(Map<String, Object> strHealthData)
+            throws JSONException, JsonProcessingException {
 
         JSONObject jsonFinantialData = new JSONObject(strHealthData);
         String codFamiliarFam = jsonFinantialData.getString("codFamiliarFam");
