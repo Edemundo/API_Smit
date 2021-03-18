@@ -2,6 +2,7 @@ package com.smads.covs.trajetoria_cidadao.controller;
 
 import com.smads.covs.trajetoria_cidadao.model.DimCidadao;
 import com.smads.covs.trajetoria_cidadao.service.DimCidadaoService;
+import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,31 +33,42 @@ public class APIRestController {
     @GetMapping("/find/{nrCpf}/{cdNis}/{nmCidadao}/{nmMae}/{dtNasc}")
     public ResponseEntity<List<DimCidadao>> getDimCidadaos(@PathVariable("nrCpf") String nrCpf, @PathVariable("cdNis") String cdNis,
                                                            @PathVariable("nmCidadao") String nmCidadao, @PathVariable("nmMae") String nmMae,
-                                                           @PathVariable("dtNasc") String dtNasc) throws ParseException {
+                                                           @PathVariable("dtNasc") String dtNasc) throws ParseException, JSONException {
 
         LocalDateTime now = LocalDateTime.now();
-        if(dtNasc == "0"){
-            System.out.println("ENTROU NO IF");
-            dtNasc = dateFormat.format(now);
+        Date dtNascimento;
+        BigInteger intNrCpf;
+        BigInteger intCdNis;
+
+        if(dtNasc.equals("0")){
+//            System.out.println("ENTROU NO IF e ~e vazia");
+//            dtNasc = dateFormat.format(now);
+                dtNascimento = null;
+
+        } else {
+            dtNascimento = dateFormat.parse(dtNasc);
         }
-        System.out.println(now);
+        System.out.println(dtNascimento);
         System.out.println("Data: " + dtNasc);
-        Date dtNascimento = dateFormat.parse(dtNasc);
+//        Date dtNascimento = dateFormat.parse(dtNasc);
 
-        if(nrCpf == "0"){
-            nrCpf = "12345678912";
+        if(nrCpf.equals("0")){
+            intNrCpf = null;
+            System.out.println(intNrCpf);
+        } else {
+            intNrCpf = new BigInteger(nrCpf);
         }
-        BigInteger intNrCpf = new BigInteger(nrCpf);
 
-        if(cdNis == "0"){
-            cdNis = "12345678912";
+        if(cdNis.equals("0")){
+            intCdNis = null;
+        } else {
+            intCdNis = new BigInteger(cdNis);
         }
-        BigInteger intCdNis = new BigInteger(cdNis);
 
         List<DimCidadao> dimCidadaos =  dimCidadaoService.findNrCpfAndCdNisAndNmCidadaoAndNmMaeAndDtNasc
                 (intNrCpf, intCdNis, nmCidadao, nmMae, dtNascimento);
 
-        if(dimCidadaos.isEmpty()){
+        if(dimCidadaos == null){
             return new ResponseEntity<>(dimCidadaos, HttpStatus.NOT_FOUND);
         }
         else {
