@@ -54,7 +54,6 @@ public class APIRestController {
 
         if(nrCpf.equals("0")){
             intNrCpf = null;
-            System.out.println(intNrCpf);
         } else {
             intNrCpf = new BigInteger(nrCpf);
         }

@@ -44,11 +44,12 @@ public class TelaDetalhadaMainController {
     @ResponseBody
     public ResponseEntity<?> detalhesCidadao(@RequestBody DimCidadao dimCidadao) throws IOException, JSONException {
         Map<String, Object> strPSFEData = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
+        Map<String, Object> strCidadaoDetalhado = new HashMap<>(strPSFEData);
 
         Map<String, Object> strSisaData = sisaDataController.SISAData(dimCidadao);
-
-        Map<String, Object> strCidadaoDetalhado = new HashMap<>(strPSFEData);
-        strCidadaoDetalhado.putAll(strSisaData);
+        if(strSisaData != null){
+            strCidadaoDetalhado.putAll(strSisaData);
+        }
 
         return new ResponseEntity<>(strCidadaoDetalhado, HttpStatus.OK);
     }
