@@ -47,17 +47,17 @@ public class PessoalSaudeFinancasEducacaoDataController {
 
     public Map<String, Object> PSFEDataController(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
 
-        Map<String, Object> strPersonalData = PersonalData(dimCidadao);
+        Map<String, Object> strPersonalData = RacaSexoPaisSituacao(dimCidadao);
         Map<String, Object> strPSFEData = new HashMap<>(strPersonalData);
 
-        Map<String, Object> strHealthData = HealthData(dimCidadao);
-        if(strHealthData.isEmpty()){}
+        Map<String, Object> strPesCad = PessoaCadunico(dimCidadao);
+        if(strPesCad.isEmpty()){}
         else{
-            strPSFEData.putAll(strHealthData);
-            Map<String, Object> strFinantialData = FinantialData(strHealthData);
-            if(strFinantialData.isEmpty()){}
+            strPSFEData.putAll(strPesCad);
+            Map<String, Object> strFamCad = FamiliaCadunico(strPesCad);
+            if(strFamCad.isEmpty()){}
             else{
-                strPSFEData.putAll(strFinantialData);
+                strPSFEData.putAll(strFamCad);
             }
         }
 
@@ -89,7 +89,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
         return strPSFEData;
     }
 
-    public Map<String, Object> PersonalData(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
+    public Map<String, Object> RacaSexoPaisSituacao(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
 
         String strDimCidadao = objectWriter.writeValueAsString(dimCidadao);
         Map<String, Object> mapStrDimCidadao = mapper.readValue(strDimCidadao, Map.class);
@@ -143,7 +143,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
         return strPersonalData;
     }
 
-    public Map<String, Object> HealthData(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
+    public Map<String, Object> PessoaCadunico(DimCidadao dimCidadao) throws JsonProcessingException, JSONException {
 
         Map<String, Object> strHealthData = new HashMap<String, Object>();
 
@@ -533,7 +533,7 @@ public class PessoalSaudeFinancasEducacaoDataController {
         return strHealthData;
     }
 
-    public Map<String, Object> FinantialData(Map<String, Object> strHealthData)
+    public Map<String, Object> FamiliaCadunico(Map<String, Object> strHealthData)
             throws JSONException, JsonProcessingException {
 
         Map<String, Object> strFinantialData = new HashMap<String, Object>();
@@ -589,9 +589,6 @@ public class PessoalSaudeFinancasEducacaoDataController {
 
         return strFinantialData;
     }
-
-    // Todos atributos necessários já foram retornados pelo Health
-    // public String EducationData(DimCidadao dimCidadao){ return null; }
 
     // Utilização do método findRacaCidadao
     // Controller(s) que utilizam: PessoalSaudeFinancasEducacaoDataController

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class DimPreAtendimentoProvidencia implements Serializable {
+public class DimPreAtendimentoProvidencia {
 
     @Id
     private Integer ciPreAtendimentoProvidencia;

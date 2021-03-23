@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 @Entity
-public class DimDistrito implements Serializable {
+public class DimDistrito {
 
     @Id
     private Integer nrDistrito;

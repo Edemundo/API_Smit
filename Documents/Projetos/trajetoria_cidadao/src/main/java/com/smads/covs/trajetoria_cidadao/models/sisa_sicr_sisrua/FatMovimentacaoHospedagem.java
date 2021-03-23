@@ -7,7 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 @Entity
-public class FatMovimentacaoHospedagem implements Serializable {
+public class FatMovimentacaoHospedagem {
 
     @Id
     private Integer cdMovimentacaoHospedagem;
