@@ -3,9 +3,8 @@ package com.smads.covs.trajetoria_cidadao.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
-
-import com.smads.covs.trajetoria_cidadao.models.json_formatter.DataReturn;
-import com.smads.covs.trajetoria_cidadao.models.sisa_sicr_sisrua.VwSisaTrajcid;
+import com.smads.covs.trajetoria_cidadao.models.sisa_sicr_sisrua.FatServicoHospedagemCidadao;
+import com.smads.covs.trajetoria_cidadao.services.sisa_siscr_sisrua.FatServicoHospedagemCidadaoService;
 import org.json.JSONException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,31 +23,31 @@ import com.smads.covs.trajetoria_cidadao.models.info_pessoal.DimCidadao;
 @Controller
 public class TelaDetalhadaMainController {
 
-    private PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController;
-    private SISADataController sisaDataController;
-
     private ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     private ObjectMapper mapper = new ObjectMapper();
 
-    public TelaDetalhadaMainController(PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController,
-                                       SISADataController sisaDataController) {
-        this.pessoalSaudeFinancasEducacaoDataController = pessoalSaudeFinancasEducacaoDataController;
+    private final SISADataController sisaDataController;
+    private final FatServicoHospedagemCidadaoService fatServicoHospedagemCidadaoService;
+    //private PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController;
+
+    public TelaDetalhadaMainController(SISADataController sisaDataController, FatServicoHospedagemCidadaoService fatServicoHospedagemCidadaoService) {
         this.sisaDataController = sisaDataController;
+        this.fatServicoHospedagemCidadaoService = fatServicoHospedagemCidadaoService;
     }
+
 
     @PostMapping("/cidadao/detalhes")
     @ResponseBody
-    public ResponseEntity<DataReturn> detalhesCidadao(@RequestBody DimCidadao dimCidadao) throws IOException, JSONException {
+    public ResponseEntity<List<FatServicoHospedagemCidadao>> detalhesCidadao(@RequestBody DimCidadao dimCidadao) throws IOException, JSONException {
 //        Map<String, Object> strPSFEData = pessoalSaudeFinancasEducacaoDataController.PSFEDataController(dimCidadao);
         Map<String, Object> strCidadaoDetalhado = new HashMap<>(/*strPSFEData*/);
 
-        List<VwSisaTrajcid> strSisaData = sisaDataController.SISAData(dimCidadao);
-        if(strSisaData != null){
-            strCidadaoDetalhado.putAll((Map<? extends String, ?>) strSisaData);
-        }
+        //List<> strSisaData = sisaDataController.SISAData(dimCidadao);
+//        if(strSisaData != null){
+//            strCidadaoDetalhado.putAll((Map<? extends String, ?>) strSisaData);
+//        }
 
-        DataReturn dataReturn = new DataReturn();
-
-        return new ResponseEntity<DataReturn>(dataReturn, HttpStatus.OK);
+        List<FatServicoHospedagemCidadao> sisaData = sisaDataController.SISAData(dimCidadao);
+        return new ResponseEntity<>(sisaData, HttpStatus.OK);
     }
 }
