@@ -26,20 +26,14 @@ public class TelaDetalhadaMainController {
 
     private PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController;
     private SISADataController sisaDataController;
-    private SISCRDataController siscrDataController;
-//    private SISRUADataController sisruaDataController;
 
     private ObjectWriter objectWriter = new ObjectMapper().writer().withDefaultPrettyPrinter();
     private ObjectMapper mapper = new ObjectMapper();
 
     public TelaDetalhadaMainController(PessoalSaudeFinancasEducacaoDataController pessoalSaudeFinancasEducacaoDataController,
-                                       SISADataController sisaDataController,
-                                       SISCRDataController siscrDataController/*,
-                                       SISRUADataController sisruaDataController*/) {
+                                       SISADataController sisaDataController) {
         this.pessoalSaudeFinancasEducacaoDataController = pessoalSaudeFinancasEducacaoDataController;
         this.sisaDataController = sisaDataController;
-        this.siscrDataController = siscrDataController;
-//        this.sisruaDataController = sisruaDataController;
     }
 
     @PostMapping("/cidadao/detalhes")
@@ -49,11 +43,9 @@ public class TelaDetalhadaMainController {
         Map<String, Object> strCidadaoDetalhado = new HashMap<>(/*strPSFEData*/);
 
         List<VwSisaTrajcid> strSisaData = sisaDataController.SISAData(dimCidadao);
-//        if(strSisaData != null){
-//            strCidadaoDetalhado.putAll(strSisaData);
-//        }
-//        Map<String, Object> strSiscrData = siscrDataController.SISCRData(dimCidadao);
-//        strCidadaoDetalhado.putAll(strSiscrData);
+        if(strSisaData != null){
+            strCidadaoDetalhado.putAll((Map<? extends String, ?>) strSisaData);
+        }
 
         DataReturn dataReturn = new DataReturn();
 
