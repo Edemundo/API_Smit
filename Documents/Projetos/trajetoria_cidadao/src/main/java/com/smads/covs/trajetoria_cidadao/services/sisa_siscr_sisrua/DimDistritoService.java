@@ -1,4 +1,4 @@
-package com.smads.covs.trajetoria_cidadao.services.sisa_siscr_sisrua;
-
-public class DimDistritoService {
-}
+//package com.smads.covs.trajetoria_cidadao.services.sisa_siscr_sisrua;
+//
+//public class DimDistritoService {
+//}
