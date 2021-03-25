@@ -15,6 +15,6 @@ public class SmitAPIController {
     @GetMapping("/smit/{ciCidadao}")
     public String getServicosDados(@PathVariable("ciCidadao")BigInteger ciCidadao){
 
-        return "Deu certo";
+        return "Deu certo - uhu";
     }
 }
