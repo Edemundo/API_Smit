@@ -24,17 +24,17 @@ public class DimCidadaoService {
             (BigInteger nrCpf, BigInteger cdNis, String nmCidadao, String nmMae, Date dtNasc) throws JSONException {
 
         if(nrCpf != null){
-        System.out.println("fez com cpf");
-        Response = dimCidadaoRepository.findAllByNrCpf(nrCpf);
-    } else if(cdNis != null){
-        System.out.println("fez com o NIS");
-        Response = dimCidadaoRepository.findAllByCdNis(cdNis);
-    }else if(nmCidadao != null && nmMae != null && dtNasc != null){
-        Response = dimCidadaoRepository.findAllByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
-    } else {
+            System.out.println("fez com cpf");
+            Response = dimCidadaoRepository.findAllByNrCpf(nrCpf);
+        } else if(cdNis != null){
+            System.out.println("fez com o NIS");
+            Response = dimCidadaoRepository.findAllByCdNis(cdNis);
+        }else if(nmCidadao != null && nmMae != null && dtNasc != null){
+            Response = dimCidadaoRepository.findAllByNmCidadaoAndNmMaeAndDtNasc(nmCidadao, nmMae, dtNasc);
+        } else {
             /* Retornará codigo 404 quando não encontrar pessoa */
-        return Response;
-    }
+            return Response;
+        }
         return Response;
     }
 

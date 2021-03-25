@@ -217,6 +217,25 @@ public class PessoalSaudeFinancasEducacaoDataController {
 
                 jsonObjHealthData.put("descTrabMembro", descTrabMemb);
 
+                //Pessoa recebe ajuda de terceiros
+                String strIndAjudaFamiliaMemb = jsonObjHealthData.getString("indAjudaFamiliaMemb");
+                Integer intIndAjudaFamiliaMemb = 99;
+
+                if (strIndAjudaFamiliaMemb != "null") {
+                    intIndAjudaFamiliaMemb = Integer.parseInt(strIndAjudaFamiliaMemb);
+                }
+
+                String descAjudaFam;
+
+                if (intIndAjudaFamiliaMemb == 0 || strIndAjudaFamiliaMemb == "null") {
+                    descAjudaFam = "Opção não marcada no formulário";
+                }
+                else {
+                    descAjudaFam = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indAjudaFamiliaMemb", descAjudaFam);
+
                 // Calculando se o cidadão já frequentou a escola
                 String strCodFrequentaEscolaMemb = jsonObjHealthData.getString("indFrequentaEscolaMemb");
                 String descFrequentaEscolaMemb;
@@ -512,6 +531,35 @@ public class PessoalSaudeFinancasEducacaoDataController {
                     descAnoSerieFrequentou = "Não frequentou / Não informado";
                 }
 
+                jsonObjHealthData.put("descAnoSerieFrequentouMemb", descAnoSerieFrequentou);
+
+                //Pessoa sabe ler e escrever
+                String strCodSabeLerEscreverMemb = jsonObjHealthData.getString("codSabeLerEscreverMemb");
+                Integer intCodSabeLerEscreverMemb = Integer.parseInt(strCodSabeLerEscreverMemb);
+                String descSabeLerEscrever;
+                if (intCodSabeLerEscreverMemb == 1) {
+                    descSabeLerEscrever = "Sim";
+                }
+                else {
+                    descSabeLerEscrever = "Não";
+                }
+
+                jsonObjHealthData.put("codSabeLerEscreverMemb", descSabeLerEscrever);
+
+                //Pessoa concluiu o curso frequentado
+                String strCodConcluiuFrequentouMemb = jsonObjHealthData.getString("codConcluiuFrequentouMemb");
+                Integer intCodConcluiuFrequentouMemb = Integer.parseInt(strCodConcluiuFrequentouMemb);
+                String descConcluiu;
+
+                if (intCodConcluiuFrequentouMemb == 1) {
+                    descConcluiu = "Sim";
+                }
+                else {
+                    descConcluiu = "Não";
+                }
+
+                jsonObjHealthData.put("codConcluiuFrequentouMemb", descConcluiu);
+
                 // Responsável Familiar
                 String strResponsavel = jsonObjHealthData.getString("codParentescoRfPessoa");
                 Integer intResponsavel = Integer.parseInt(strResponsavel);
@@ -522,9 +570,190 @@ public class PessoalSaudeFinancasEducacaoDataController {
                 else{
                     descResponsavel = "Não";
                 }
+
                 jsonObjHealthData.put("descResponsavel", descResponsavel);
 
-                jsonObjHealthData.put("descAnoSerieFrequentouMemb", descAnoSerieFrequentou);
+                // Pessoa tem deficiência
+                String strCodDefMemb = jsonObjHealthData.getString("codDeficienciaMemb");
+                Integer intCodDefMemb =  Integer.parseInt(strCodDefMemb);
+                String descCodDefMemb;
+                if (intCodDefMemb == 1) {
+                    descCodDefMemb = "Sim";
+                }
+                else {
+                    descCodDefMemb = "Não";
+                }
+
+                jsonObjHealthData.put("codDeficienciaMemb", descCodDefMemb);
+
+                // Pessoa tem deficiência de baixa visão
+                String strIndDefBaixaVisaoMemb = jsonObjHealthData.getString("indDefBaixaVisaoMemb");
+                Integer intIndDefBaixaVisaoMemb = 99;
+                System.out.println(strIndDefBaixaVisaoMemb);
+                if (strIndDefBaixaVisaoMemb != "null") {
+                    System.out.println("entrou no if");
+                    intIndDefBaixaVisaoMemb = Integer.parseInt(strIndDefBaixaVisaoMemb);
+                }
+                String descIndDefBaixaVisao;
+
+                if (intIndDefBaixaVisaoMemb == 0 || strIndDefBaixaVisaoMemb == "null"){
+                    descIndDefBaixaVisao = "Opção não marcada no formulário";
+                }
+                else {
+                    descIndDefBaixaVisao = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefBaixaVisaoMemb", descIndDefBaixaVisao);
+
+                // Pessoa tem Síndrome de Down
+                String strIndDefSrindromeDownMemb = jsonObjHealthData.getString("indDefSindromeDownMemb");
+                Integer intIndDefSindromeDownMemb = 99;
+                if (strIndDefSrindromeDownMemb != "null") {
+                    intIndDefSindromeDownMemb = Integer.parseInt(strIndDefSrindromeDownMemb);
+                }
+                String descIndDefSindromeDown;
+
+                if (intIndDefSindromeDownMemb == 0 || strIndDefSrindromeDownMemb == "null") {
+                    descIndDefSindromeDown = "Opção não marcada no formulário";
+                }
+                else {
+                    descIndDefSindromeDown = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefSindromeDownMemb", descIndDefSindromeDown);
+
+                // Pessoa possuí deficiência mental
+                String strIndDefMentalMemb = jsonObjHealthData.getString("indDefMentalMemb");
+                Integer intIndDefMentalMemb = 99;
+                if (strIndDefMentalMemb != "null") {
+                    intIndDefMentalMemb = Integer.parseInt(strIndDefMentalMemb);
+                }
+
+                String descIndDefMental;
+
+                if (intIndDefMentalMemb == 0 || strIndDefMentalMemb == "null") {
+                    descIndDefMental = "Opção não marcada no formulário";
+                }
+                else {
+                    descIndDefMental = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefMentalMemb", descIndDefMental);
+
+                //Pessoa possuí deficiência cegueira
+                String strIndDefCegueiraMemb = jsonObjHealthData.getString("indDefCegueiraMemb");
+                Integer intIndDefCegueiraMemb = 99;
+
+                if (strIndDefCegueiraMemb != "null") {
+                    intIndDefCegueiraMemb = Integer.parseInt(strIndDefCegueiraMemb);
+                }
+
+                String descIndDefCegueira;
+
+                if (intIndDefCegueiraMemb == 0 || strIndDefCegueiraMemb == "null") {
+                    descIndDefCegueira = "Opção não marcada no formulário";
+                }
+                else {
+                    descIndDefCegueira = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefCegueiraMemb", descIndDefCegueira);
+
+                //Pessoa tem surdez leve
+                String strIndDefSurdezLeveMemb = jsonObjHealthData.getString("indDefSurdezLeveMemb");
+                Integer intIndDefSurdezLeveMemb = 99;
+
+                if (strIndDefSurdezLeveMemb != "null") {
+                    intIndDefSurdezLeveMemb = Integer.parseInt(strIndDefSurdezLeveMemb);
+                }
+
+                String descIndDefSurdez;
+
+                if (intIndDefSurdezLeveMemb == 0 || strIndDefSurdezLeveMemb == "null") {
+                    descIndDefSurdez = "Opção não marcada no formulário";
+                }
+                else {
+                    descIndDefSurdez = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefSurdezLeveMemb", descIndDefSurdez);
+
+                //Pessoa tem surdez profunda
+                String strIndDefSurdezProfundaMemb = jsonObjHealthData.getString("indDefSurdezProfundaMemb");
+                Integer intIndDefSurdezProfundaMemb = 99;
+
+                if (strIndDefSurdezProfundaMemb != "null") {
+                    intIndDefSurdezProfundaMemb = Integer.parseInt(strIndDefSurdezProfundaMemb);
+                }
+
+                String descIndDefSurdezProfunda;
+
+                if (intIndDefSurdezProfundaMemb == 0 || strIndDefSurdezProfundaMemb == "null") {
+                    descIndDefSurdezProfunda = "Opção não marcada no formulário";
+                }
+                else {
+                    descIndDefSurdezProfunda = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefSurdezProfundaMemb", descIndDefSurdezProfunda);
+
+                //Pessoa tem transtorno mental
+                String strIndDefTranstornoMentalMemb = jsonObjHealthData.getString("indDefTranstornoMentalMemb");
+                Integer intIndDefTranstornoMentalMemb = 99;
+
+                if (strIndDefTranstornoMentalMemb != "null") {
+                    intIndDefTranstornoMentalMemb = Integer.parseInt(strIndDefTranstornoMentalMemb);
+                }
+
+                String descTranstornoMental;
+
+                if (intIndDefTranstornoMentalMemb == 0 || strIndDefTranstornoMentalMemb == "null") {
+                    descTranstornoMental = "Opção não marcada no formulário";
+                }
+                else {
+                    descTranstornoMental = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefTranstornoMentalMemb", descTranstornoMental);
+
+                //Pessoa tem deficiência física
+                String strIndDefFisicaMemb = jsonObjHealthData.getString("indDefFisicaMemb");
+                Integer intIndDefFisicaMemb = 99;
+
+                if (strIndDefFisicaMemb != "null") {
+                    intIndDefFisicaMemb = Integer.parseInt(strIndDefFisicaMemb);
+                }
+
+                String descDefFisica;
+
+                if (intIndDefFisicaMemb == 0 || strIndDefFisicaMemb == "null") {
+                    descDefFisica = "Opção não marcada no formulário";
+                }
+                else {
+                    descDefFisica = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indDefFisicaMemb", descDefFisica);
+
+                //Pessoa recebe ajuda de terceiros
+                String strIndAjudaNaoMemb = jsonObjHealthData.getString("indAjudaNaoMemb");
+                Integer intIndAjudaNaoMemb = 99;
+
+                if (strIndAjudaNaoMemb != "null") {
+                    intIndAjudaNaoMemb = Integer.parseInt(strIndAjudaNaoMemb);
+                }
+
+                String descAjudaDeTerceiro;
+
+                if (intIndAjudaNaoMemb == 0 || strIndAjudaNaoMemb == "null") {
+                    descAjudaDeTerceiro = "Opção não marcada no formulário";
+                }
+                else {
+                    descAjudaDeTerceiro = "Opção marcada no formulário";
+                }
+
+                jsonObjHealthData.put("indAjudaNaoMemb", descAjudaDeTerceiro);
+
 
                 strHealthData = mapper.readValue(jsonObjHealthData.toString(), HashMap.class);
             }
@@ -581,7 +810,8 @@ public class PessoalSaudeFinancasEducacaoDataController {
                 stringBuilder.insert(strVlrRendaFamiliar.length()-2,".");
                 String dotStrVlrRendaFamiliar = stringBuilder.toString();
                 Float vlrRendaFamiliar = Float.parseFloat(dotStrVlrRendaFamiliar);
-                jsonFinantialData.put("RendaMediaFam", vlrRendaFamiliar);
+                String strRendaMedia = "R$"+ vlrRendaFamiliar +"0";
+                jsonFinantialData.put("vlrRendaMediaFam", strRendaMedia);
 
                 strFinantialData = mapper.readValue(jsonFinantialData.toString(), HashMap.class);
             }
