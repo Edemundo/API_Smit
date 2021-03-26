@@ -59,7 +59,7 @@ public class DevolutivasService implements Serializable {
                 String sessionKey = parse(EntityUtils.toString(entity));
                 post.setEntity( new StringEntity("{\n" +
                         "    \"method\":\"list_participants\",\n" +
-                        "    \"params\":[\""+sessionKey+"\",\"655794\",1, 700, true, [\"attribute_1\"]],\n" +
+                        "    \"params\":[\""+sessionKey+"\",\"655794\",1, 2000, false, [\"attribute_1\"]],\n" +
                         "    \"id\":1\n" +
                         "}"));
                 response = client.execute(post);
@@ -115,7 +115,7 @@ public class DevolutivasService implements Serializable {
                 String sessionKey = parse(EntityUtils.toString(entity));
                 post.setEntity( new StringEntity("{\n" +
                         "    \"method\":\"list_participants\",\n" +
-                        "    \"params\":[\""+sessionKey+"\",\"655794\",1, 700, true, [\"attribute_1\",\"attribute_7\"], {\"attribute_1\": \""+sasName+"\"}],\n" +
+                        "    \"params\":[\""+sessionKey+"\",\"655794\",1, 2000, false, [\"attribute_1\",\"attribute_7\"], {\"attribute_1\": \""+sasName+"\"}],\n" +
                         "    \"id\":1\n" +
                         "}"));
                 response = client.execute(post);
@@ -123,7 +123,14 @@ public class DevolutivasService implements Serializable {
                     entity = response.getEntity();
                     String entityString = EntityUtils.toString(entity);
 
+                    if(entityString.length() < 75){
+                        JSONObject json = new JSONObject(entityString);
+                        JSONObject result = json.getJSONObject("result");
+                        return null;
+                    }
+
                     JSONObject json = new JSONObject(entityString);
+                    System.out.println(json.toString());
                     JSONArray result = json.getJSONArray("result");
 
                     int resultLength = result.length();
@@ -170,13 +177,19 @@ public class DevolutivasService implements Serializable {
                 String sessionKey = parse(EntityUtils.toString(entity));
                 post.setEntity( new StringEntity("{\n" +
                         "    \"method\":\"list_participants\",\n" +
-                        "    \"params\":[\""+sessionKey+"\",\"655794\",1, 700, true, [\"attribute_1\",\"attribute_7\",\"attribute_4\"], {\"attribute_1\": \""+sasName+"\",\"attribute_7\": \""+sasMonthActivity+"\"}],\n" +
+                        "    \"params\":[\""+sessionKey+"\",\"655794\",1, 2000, false, [\"attribute_1\",\"attribute_7\",\"attribute_4\"], {\"attribute_1\": \""+sasName+"\",\"attribute_7\": \""+sasMonthActivity+"\"}],\n" +
                         "    \"id\":1\n" +
                         "}"));
                 response = client.execute(post);
                 if(response.getStatusLine().getStatusCode() == 200){
                     entity = response.getEntity();
                     String entityString = EntityUtils.toString(entity);
+
+                    if(entityString.length() < 75){
+                        JSONObject json = new JSONObject(entityString);
+                        JSONObject result = json.getJSONObject("result");
+                        return null;
+                    }
 
                     JSONObject json = new JSONObject(entityString);
                     JSONArray result = json.getJSONArray("result");

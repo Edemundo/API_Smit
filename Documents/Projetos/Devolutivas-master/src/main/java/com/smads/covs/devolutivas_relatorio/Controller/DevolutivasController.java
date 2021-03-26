@@ -38,7 +38,15 @@ public class DevolutivasController  {
 
     @GetMapping(path = "{sasName}")
     public ResponseEntity getSasMonthActivity(@PathVariable("sasName") String sasName) throws UnsupportedEncodingException{
-        return new ResponseEntity<>(devolutivasService.getSasMonthActivity(sasName), HttpStatus.OK);
+        Object objSasName = devolutivasService.getSasMonthActivity(sasName);
+        if(objSasName == null)
+        {
+            System.out.println("adudhasuhdaushdua");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        else{
+            return new ResponseEntity<>(objSasName, HttpStatus.OK);
+        }
     }
 
     @GetMapping(path = "{sasName}/{sasMonthActivity}")
@@ -47,7 +55,12 @@ public class DevolutivasController  {
             throws UnsupportedEncodingException{
 
         ArrayList<SasServices> lstSasServices = devolutivasService.getSasServices(sasName, sasMonthActivity);
-        return new ResponseEntity<>(lstSasServices, HttpStatus.OK);
+        if(lstSasServices == null){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        else {
+            return new ResponseEntity<>(lstSasServices, HttpStatus.OK);
+        }
     }
 
     @GetMapping(path = "{sasName}/{sasMonthActivity}/{token}")
