@@ -20,7 +20,7 @@ public class VTrajcidPernoiteBaseReplicadaService {
   }
 
   public List<VTrajcidPernoiteBaseReplicada> findByVTrajcidPernoiteBaseReplicada(BigInteger ciCidadao){
-    Response = vTrajcidPernoiteBaseReplicadaRepository.findAllByCiCidadao(ciCidadao);
+    Response = vTrajcidPernoiteBaseReplicadaRepository.findAllByCiCidadaoOrderByDtHospedagemAsc(ciCidadao);
     return Response;
   }
 }

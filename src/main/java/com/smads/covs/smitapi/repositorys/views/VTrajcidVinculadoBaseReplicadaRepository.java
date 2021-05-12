@@ -10,5 +10,5 @@ import java.util.List;
 public interface VTrajcidVinculadoBaseReplicadaRepository
   extends JpaRepository<VTrajcidVinculadoBaseReplicada, Date> {
 
-  List<VTrajcidVinculadoBaseReplicada> findAllByCiCidadao(BigInteger ciCidadao);
+  List<VTrajcidVinculadoBaseReplicada> findAllByCiCidadaoOrderByDtVinculacaoAsc(BigInteger ciCidadao);
 }

@@ -20,7 +20,7 @@ public class VTrajcidVinculadoBaseReplicadaService {
   }
 
   public List<VTrajcidVinculadoBaseReplicada> findAllByVTrajcidVinculadoBaseReplicada(BigInteger ciCidadao){
-    Response = vTrajcidVinculadoBaseReplicadaRepository.findAllByCiCidadao(ciCidadao);
+    Response = vTrajcidVinculadoBaseReplicadaRepository.findAllByCiCidadaoOrderByDtVinculacaoAsc(ciCidadao);
     return Response;
   }
 }

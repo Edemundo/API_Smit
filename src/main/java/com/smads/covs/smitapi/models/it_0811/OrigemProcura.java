@@ -1,7 +1,5 @@
 package com.smads.covs.smitapi.models.it_0811;
 
-import org.hibernate.annotations.Immutable;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

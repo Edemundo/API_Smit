@@ -1,7 +1,5 @@
 package com.smads.covs.smitapi.models.retorno;
 
-import java.util.Date;
-
 public class SisaPernoiteData {
 
   private String dtHospedagem;

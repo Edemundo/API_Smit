@@ -10,5 +10,5 @@ import java.util.List;
 public interface VTrajcidPernoiteBaseReplicadaRepository
   extends JpaRepository<VTrajcidPernoiteBaseReplicada, Date> {
 
-  List<VTrajcidPernoiteBaseReplicada> findAllByCiCidadao(BigInteger ciCidadao);
+  List<VTrajcidPernoiteBaseReplicada> findAllByCiCidadaoOrderByDtHospedagemAsc(BigInteger ciCidadao);
 }

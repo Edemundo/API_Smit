@@ -1,7 +1,5 @@
 package com.smads.covs.smitapi.models.retorno;
 
-import java.util.Date;
-
 public class SisaVinculadoData {
 
   private String nmServico;
@@ -12,7 +10,7 @@ public class SisaVinculadoData {
   private String dtDesligamento;
   private String nmOrigemProcura;
   private String nmMotivoProcura;
-  private String nmMotivoDeligamento;
+  private String nmMotivoDesligamento;
 
   public SisaVinculadoData() {
   }
@@ -81,12 +79,12 @@ public class SisaVinculadoData {
     this.nmMotivoProcura = nmMotivoProcura;
   }
 
-  public String getNmMotivoDeligamento() {
-    return nmMotivoDeligamento;
+  public String getNmMotivoDesligamento() {
+    return nmMotivoDesligamento;
   }
 
-  public void setNmMotivoDeligamento(String nmMotivoDeligamento) {
-    this.nmMotivoDeligamento = nmMotivoDeligamento;
+  public void setNmMotivoDesligamento(String nmMotivoDesligamento) {
+    this.nmMotivoDesligamento = nmMotivoDesligamento;
   }
 
   @Override
@@ -100,7 +98,7 @@ public class SisaVinculadoData {
       ", dtDesligamento=" + dtDesligamento +
       ", nmOrigemProcura='" + nmOrigemProcura + '\'' +
       ", nmMotivoProcura='" + nmMotivoProcura + '\'' +
-      ", nmMotivoDeligamento='" + nmMotivoDeligamento + '\'' +
+      ", nmMotivoDeligamento='" + nmMotivoDesligamento + '\'' +
       '}';
   }
 }

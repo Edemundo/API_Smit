@@ -1,6 +1,5 @@
 package com.smads.covs.smitapi.models.views;
 
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

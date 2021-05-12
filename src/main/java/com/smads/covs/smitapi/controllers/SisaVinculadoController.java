@@ -52,7 +52,7 @@ public class SisaVinculadoController {
     this.lstSisaVinculadoData = lstSisaVinculadoData;
   }
 
-  public List<SisaVinculadoData> SisaVinc(BigInteger ciCidadao) throws URISyntaxException, IOException, JSONException {
+  public List<SisaVinculadoData> SisaVinc(BigInteger ciCidadao) throws URISyntaxException, IOException {
 
     List<VTrajcidVinculadoBaseReplicada> lstVTrajcidVinculadoBaseReplicada = vTrajcidVinculadoBaseReplicadaService.findAllByVTrajcidVinculadoBaseReplicada(ciCidadao);
     lstSisaVinculadoData.clear();
@@ -64,13 +64,20 @@ public class SisaVinculadoController {
         String strDtDesligamento = formatter.format(vTrajcidVinculadoBaseReplicada.getDtDesligamento());
         sisaVinculadoData.setDtDesligamento(strDtDesligamento);
       }
+      else{
+        sisaVinculadoData.setDtDesligamento("-");
+      }
 
       if(vTrajcidVinculadoBaseReplicada.getDtVinculacao() != null){
         String strDtVinculacao = formatter.format(vTrajcidVinculadoBaseReplicada.getDtVinculacao());
         sisaVinculadoData.setDtVinculacao(strDtVinculacao);
       }
+      else{
+        sisaVinculadoData.setDtVinculacao("-");
+      }
 
       // Chamar aqui os services das tabelas do banco 0811
+
       Integer cdMotivoDesligamento = vTrajcidVinculadoBaseReplicada.getCdMotivoDesligamento();
       Integer cdMotivoProcura = vTrajcidVinculadoBaseReplicada.getCdMotivoProcura();
       Integer cdOrigemProcura = vTrajcidVinculadoBaseReplicada.getCdOrigemProcura();
@@ -79,23 +86,38 @@ public class SisaVinculadoController {
 
       if(cdMotivoDesligamento != null){
         String motivoDesl = motivoDesligamentoService.findMotivoDesligamento(cdMotivoDesligamento).getDcMotivoDesligamento();
-        sisaVinculadoData.setNmMotivoDeligamento(motivoDesl);
+        sisaVinculadoData.setNmMotivoDesligamento(motivoDesl);
+      }
+      else{
+        sisaVinculadoData.setNmMotivoDesligamento("-");
       }
       if(cdMotivoProcura != null){
         String motivProc = motivoProcuraService.findMotivoProcura(cdMotivoProcura).getDcMotivoProcura();
         sisaVinculadoData.setNmMotivoProcura(motivProc);
       }
+      else{
+        sisaVinculadoData.setNmMotivoProcura("-");
+      }
       if(cdOrigemProcura != null){
         String origemProc = origemProcuraService.findOrigemProcura(cdOrigemProcura).getDcOrigemProcura();
         sisaVinculadoData.setNmOrigemProcura(origemProc);
+      }
+      else{
+        sisaVinculadoData.setNmOrigemProcura("-");
       }
       if(cdServico != null){
         String nmServico = servicoService.findServico(cdServico).getNmServico();
         sisaVinculadoData.setNmServico(nmServico);
       }
+      else{
+        sisaVinculadoData.setNmServico("-");
+      }
       if(cdTipoServico != null){
         String nmTipoServico = tipoServicoService.findTipoServico(cdTipoServico).getDcTipoServico();
         sisaVinculadoData.setNmTipoServico(nmTipoServico);
+      }
+      else{
+        sisaVinculadoData.setNmTipoServico("-");
       }
 
       // Chamando API do banco it_0101
