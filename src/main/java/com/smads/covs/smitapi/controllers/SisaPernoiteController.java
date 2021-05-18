@@ -36,17 +36,12 @@ public class SisaPernoiteController {
   private final List<SisaPernoiteData> lstSisaPernoiteData;
   private final List<SisaPernoiteData> lstSisaPernoiteDataAgrServico;
   private final List<SisaPernoiteData> lstSisaPernCompare;
-  private final List<SisaPernoiteData> lstPernoitadasSetObjFor3;
   private final List<PernoiteAgregadoPorServico> lstPernoiteAgregadoPorServicos;
 
 
   public SisaPernoiteController(VTrajcidPernoiteBaseReplicadaService vTrajcidPernoiteBaseReplicadaService,
-                                ServicoService servicoService, TipoServicoService tipoServicoService,
-                                List<SisaPernoiteData> lstSisaPernoiteData,
-                                List<SisaPernoiteData> lstSisaPernoiteDataAgrServico,
-                                List<PernoiteAgregadoPorServico> lstPernoiteAgregadoPorServicos,
-                                List<SisaPernoiteData> lstSisaPernCompare,
-                                List<SisaPernoiteData> lstPernoitadasSetObjFor3) {
+                                ServicoService servicoService, TipoServicoService tipoServicoService, List<SisaPernoiteData> lstSisaPernoiteData,
+                                List<SisaPernoiteData> lstSisaPernoiteDataAgrServico, List<PernoiteAgregadoPorServico> lstPernoiteAgregadoPorServicos, List<SisaPernoiteData> lstSisaPernCompare) {
     this.vTrajcidPernoiteBaseReplicadaService = vTrajcidPernoiteBaseReplicadaService;
     this.servicoService = servicoService;
     this.tipoServicoService = tipoServicoService;
@@ -54,7 +49,6 @@ public class SisaPernoiteController {
     this.lstSisaPernoiteDataAgrServico = lstSisaPernoiteDataAgrServico;
     this.lstPernoiteAgregadoPorServicos = lstPernoiteAgregadoPorServicos;
     this.lstSisaPernCompare = lstSisaPernCompare;
-    this.lstPernoitadasSetObjFor3 = lstPernoitadasSetObjFor3;
   }
 
   public List<PernoiteAgregadoPorServico> SisaPern(BigInteger ciCidadao) throws IOException, URISyntaxException {
@@ -128,6 +122,7 @@ public class SisaPernoiteController {
     }
 
     for(int i = 0; i < lstSisaPernCompare.size(); i++){
+
       PernoiteAgregadoPorServico pernoiteAgregadoPorServico = new PernoiteAgregadoPorServico();
       lstSisaPernoiteDataAgrServico.clear();
       String nomeComparacao = lstSisaPernCompare.get(i).getNmServico();
@@ -152,24 +147,14 @@ public class SisaPernoiteController {
             }
           }
           pernoiteAgregadoPorServico.setQtdEstadias(qtdEstadias += 1);
-          //System.out.println(j + " " + lstSisaPernoiteData.get(j));
           lstSisaPernoiteDataAgrServico.add(lstSisaPernoiteData.get(j));
-          lstPernoitadasSetObjFor3.add(lstSisaPernoiteData.get(j));
-          System.out.println(j + " " + lstSisaPernoiteDataAgrServico);
+          pernoiteAgregadoPorServico.setLstServicosPernoitados(lstSisaPernoiteDataAgrServico);
         }
+
       }
       lstPernoiteAgregadoPorServicos.add(pernoiteAgregadoPorServico);
     }
 
-    System.out.println(lstPernoitadasSetObjFor3);
-    for(int i = 0; i < lstSisaPernoiteData.size(); i++){
-      String nomeComparacao = lstSisaPernCompare.get(i).getNmServico();
-      for(int j = 0; j < lstSisaPernoiteData.size(); j++){
-
-      }
-    }
-
-    System.out.println("\n\n\n\n\n\n\n\n\n\n\n" + lstPernoiteAgregadoPorServicos);
     return lstPernoiteAgregadoPorServicos;
   }
 }
