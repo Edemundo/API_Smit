@@ -21,12 +21,16 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Controller
 public class SisaVinculadoController {
 
-  private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+  private final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+  private final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
   private final VTrajcidVinculadoBaseReplicadaService vTrajcidVinculadoBaseReplicadaService;
 
@@ -60,20 +64,37 @@ public class SisaVinculadoController {
 
       SisaVinculadoData sisaVinculadoData = new SisaVinculadoData();
 
+      String strDtDesligamento = null;
       if(vTrajcidVinculadoBaseReplicada.getDtDesligamento() != null){
-        String strDtDesligamento = formatter.format(vTrajcidVinculadoBaseReplicada.getDtDesligamento());
+        strDtDesligamento = formatter.format(vTrajcidVinculadoBaseReplicada.getDtDesligamento());
         sisaVinculadoData.setDtDesligamento(strDtDesligamento);
       }
       else{
         sisaVinculadoData.setDtDesligamento("-");
       }
 
+      String strDtVinculacao = null;
       if(vTrajcidVinculadoBaseReplicada.getDtVinculacao() != null){
-        String strDtVinculacao = formatter.format(vTrajcidVinculadoBaseReplicada.getDtVinculacao());
+        strDtVinculacao = formatter.format(vTrajcidVinculadoBaseReplicada.getDtVinculacao());
         sisaVinculadoData.setDtVinculacao(strDtVinculacao);
       }
       else{
         sisaVinculadoData.setDtVinculacao("-");
+      }
+
+      long tempPerm;
+      //Calculando o tempo de permanência
+      if(strDtDesligamento != null && strDtVinculacao != null){
+        LocalDate dateVinc = LocalDate.parse(strDtVinculacao, dtf);
+        LocalDate dateDesl = LocalDate.parse(strDtDesligamento, dtf);
+        tempPerm = ChronoUnit.DAYS.between(dateVinc,dateDesl);
+        sisaVinculadoData.setTempoPermanencia(tempPerm);
+      }
+      else if(strDtVinculacao != null && strDtDesligamento == null){
+        LocalDate dateVinc = LocalDate.parse(strDtVinculacao, dtf);
+        LocalDate dateToday = LocalDate.now();
+        tempPerm = ChronoUnit.DAYS.between(dateVinc,dateToday);
+        sisaVinculadoData.setTempoPermanencia(tempPerm);
       }
 
       // Chamar aqui os services das tabelas do banco 0811

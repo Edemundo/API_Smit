@@ -11,6 +11,7 @@ public class SisaVinculadoData {
   private String nmOrigemProcura;
   private String nmMotivoProcura;
   private String nmMotivoDesligamento;
+  private Long tempoPermanencia;
 
   public SisaVinculadoData() {
   }
@@ -87,6 +88,14 @@ public class SisaVinculadoData {
     this.nmMotivoDesligamento = nmMotivoDesligamento;
   }
 
+  public Long getTempoPermanencia() {
+    return tempoPermanencia;
+  }
+
+  public void setTempoPermanencia(Long tempoPermanencia) {
+    this.tempoPermanencia = tempoPermanencia;
+  }
+
   @Override
   public String toString() {
     return "SisaVinculadoData{" +
@@ -94,11 +103,12 @@ public class SisaVinculadoData {
       ", nmSubprefeitura='" + nmSubprefeitura + '\'' +
       ", nmDistrito='" + nmDistrito + '\'' +
       ", nmTipoServico='" + nmTipoServico + '\'' +
-      ", dtVinculacao=" + dtVinculacao +
-      ", dtDesligamento=" + dtDesligamento +
+      ", dtVinculacao='" + dtVinculacao + '\'' +
+      ", dtDesligamento='" + dtDesligamento + '\'' +
       ", nmOrigemProcura='" + nmOrigemProcura + '\'' +
       ", nmMotivoProcura='" + nmMotivoProcura + '\'' +
-      ", nmMotivoDeligamento='" + nmMotivoDesligamento + '\'' +
+      ", nmMotivoDesligamento='" + nmMotivoDesligamento + '\'' +
+      ", tempoPermanencia=" + tempoPermanencia +
       '}';
   }
 }

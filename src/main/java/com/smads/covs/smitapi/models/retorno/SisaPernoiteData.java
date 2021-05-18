@@ -1,8 +1,10 @@
 package com.smads.covs.smitapi.models.retorno;
 
+import java.util.Date;
+
 public class SisaPernoiteData {
 
-  private String dtHospedagem;
+  private Date dtHospedagem;
   private String nmSubprefeitura;
   private String nmDistrito;
   private String nmServico;
@@ -11,11 +13,11 @@ public class SisaPernoiteData {
   public SisaPernoiteData() {
   }
 
-  public String getDtHospedagem() {
+  public Date getDtHospedagem() {
     return dtHospedagem;
   }
 
-  public void setDtHospedagem(String dtHospedagem) {
+  public void setDtHospedagem(Date dtHospedagem) {
     this.dtHospedagem = dtHospedagem;
   }
 

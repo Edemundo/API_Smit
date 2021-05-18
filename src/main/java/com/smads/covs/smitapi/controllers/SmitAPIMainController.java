@@ -1,5 +1,6 @@
 package com.smads.covs.smitapi.controllers;
 
+import com.smads.covs.smitapi.models.retorno.PernoiteAgregadoPorServico;
 import com.smads.covs.smitapi.models.retorno.SisaPernoiteData;
 import com.smads.covs.smitapi.models.retorno.SisaVinculadoData;
 import org.json.JSONException;
@@ -18,7 +19,7 @@ public class SmitAPIMainController {
   private final SisaPernoiteController sisaPernoiteController;
 
   private List<SisaVinculadoData> lstSisaVinculadoData;
-  private List<SisaPernoiteData> lstSisaPernoiteData;
+  private List<PernoiteAgregadoPorServico> lstSisaPernoiteData;
 
   public SmitAPIMainController(SisaVinculadoController sisaVinculadoController,
                                SisaPernoiteController sisaPernoiteController) {
@@ -33,13 +34,11 @@ public class SmitAPIMainController {
     BigInteger biCiCidadao = new BigInteger(ciCidadao);
     lstSisaVinculadoData = sisaVinculadoController.SisaVinc(biCiCidadao);
 
-    System.out.println(lstSisaVinculadoData);
-
     return lstSisaVinculadoData;
   }
 
   @GetMapping("/smit/sisap")
-  public List<SisaPernoiteData> getSisaPernoiteData(@RequestParam String ciCidadao)
+  public List<PernoiteAgregadoPorServico> getSisaPernoiteData(@RequestParam String ciCidadao)
     throws IOException, URISyntaxException {
 
     BigInteger biCiCidadao = new BigInteger(ciCidadao);
