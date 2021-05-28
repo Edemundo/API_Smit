@@ -121,34 +121,32 @@ public class SisaPernoiteController {
       nomeServicoRepetido = false;
     }
 
-    for(int i = 0; i < lstSisaPernCompare.size(); i++){
+    for (SisaPernoiteData sisaPernoiteData : lstSisaPernCompare) {
 
       PernoiteAgregadoPorServico pernoiteAgregadoPorServico = new PernoiteAgregadoPorServico();
       lstSisaPernoiteDataAgrServico.clear();
-      String nomeComparacao = lstSisaPernCompare.get(i).getNmServico();
+      String nomeComparacao = sisaPernoiteData.getNmServico();
       int qtdEstadias = 0;
 
-      for(int j = 0; j < lstSisaPernoiteData.size(); j++){
-        if(nomeComparacao.equals(lstSisaPernoiteData.get(j).getNmServico())) {
-          if(lstSisaPernoiteDataAgrServico.size() == 0){
-            pernoiteAgregadoPorServico.setNmServico(lstSisaPernCompare.get(i).getNmServico());
-            pernoiteAgregadoPorServico.setNmTipoServico(lstSisaPernCompare.get(i).getNmTipoServico());
-            pernoiteAgregadoPorServico.setNmDistrito(lstSisaPernCompare.get(i).getNmDistrito());
-            pernoiteAgregadoPorServico.setNmSubprefeitura(lstSisaPernCompare.get(i).getNmSubprefeitura());
-            pernoiteAgregadoPorServico.setPrimeiraData(lstSisaPernCompare.get(i).getDtHospedagem());
-            pernoiteAgregadoPorServico.setUltimaData(lstSisaPernCompare.get(i).getDtHospedagem());
-          }
-          else{
-            if(pernoiteAgregadoPorServico.getPrimeiraData().compareTo(lstSisaPernoiteData.get(j).getDtHospedagem()) > 0){
-              pernoiteAgregadoPorServico.setPrimeiraData(lstSisaPernoiteData.get(j).getDtHospedagem());
+      for (SisaPernoiteData lstSisaPernoiteDatum : lstSisaPernoiteData) {
+        if (nomeComparacao.equals(lstSisaPernoiteDatum.getNmServico())) {
+          if (lstSisaPernoiteDataAgrServico.size() == 0) {
+            pernoiteAgregadoPorServico.setNmServico(sisaPernoiteData.getNmServico());
+            pernoiteAgregadoPorServico.setNmTipoServico(sisaPernoiteData.getNmTipoServico());
+            pernoiteAgregadoPorServico.setNmDistrito(sisaPernoiteData.getNmDistrito());
+            pernoiteAgregadoPorServico.setNmSubprefeitura(sisaPernoiteData.getNmSubprefeitura());
+            pernoiteAgregadoPorServico.setPrimeiraData(sisaPernoiteData.getDtHospedagem());
+            pernoiteAgregadoPorServico.setUltimaData(sisaPernoiteData.getDtHospedagem());
+          } else {
+            if (pernoiteAgregadoPorServico.getPrimeiraData().compareTo(lstSisaPernoiteDatum.getDtHospedagem()) > 0) {
+              pernoiteAgregadoPorServico.setPrimeiraData(lstSisaPernoiteDatum.getDtHospedagem());
             }
-            if(pernoiteAgregadoPorServico.getUltimaData().compareTo(lstSisaPernoiteData.get(j).getDtHospedagem()) < 0){
-              pernoiteAgregadoPorServico.setUltimaData(lstSisaPernoiteData.get(j).getDtHospedagem());
+            if (pernoiteAgregadoPorServico.getUltimaData().compareTo(lstSisaPernoiteDatum.getDtHospedagem()) < 0) {
+              pernoiteAgregadoPorServico.setUltimaData(lstSisaPernoiteDatum.getDtHospedagem());
             }
           }
           pernoiteAgregadoPorServico.setQtdEstadias(qtdEstadias += 1);
-          lstSisaPernoiteDataAgrServico.add(lstSisaPernoiteData.get(j));
-          pernoiteAgregadoPorServico.setLstServicosPernoitados(lstSisaPernoiteDataAgrServico);
+          lstSisaPernoiteDataAgrServico.add(lstSisaPernoiteDatum);
         }
 
       }

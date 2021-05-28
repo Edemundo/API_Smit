@@ -98,7 +98,6 @@ public class SisaVinculadoController {
       }
 
       // Chamar aqui os services das tabelas do banco 0811
-
       Integer cdMotivoDesligamento = vTrajcidVinculadoBaseReplicada.getCdMotivoDesligamento();
       Integer cdMotivoProcura = vTrajcidVinculadoBaseReplicada.getCdMotivoProcura();
       Integer cdOrigemProcura = vTrajcidVinculadoBaseReplicada.getCdOrigemProcura();

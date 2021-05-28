@@ -1,7 +1,6 @@
 package com.smads.covs.smitapi.controllers;
 
 import com.smads.covs.smitapi.models.retorno.PernoiteAgregadoPorServico;
-import com.smads.covs.smitapi.models.retorno.SisaPernoiteData;
 import com.smads.covs.smitapi.models.retorno.SisaVinculadoData;
 import org.json.JSONException;
 import org.springframework.web.bind.annotation.*;
@@ -46,10 +45,4 @@ public class SmitAPIMainController {
 
     return lstSisaPernoiteData;
   }
-
-//  @GetMapping("/smit/siscr")
-//  public String getSiscrDados(@RequestParam String ciCidadao){
-//
-//    return "Deu certo - uhu";
-//  }
 }
